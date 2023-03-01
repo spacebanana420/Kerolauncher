@@ -8,6 +8,8 @@ MacOS and BSD-based systems are not supported by Lutris
 # How to use
 Download kerolauncher.rb and (if you haven't yet) install Ruby on your system. Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
 
+If you are on Linux/MacOS/BSD/etc, you also require wine to play and optionally Lutris to integrate the launcher with Lutris
+
 Open kerolauncher.rb and explore the configuration settings, this setup is required
 
 After everything is configured, you can execute the launcher from a terminal with ```ruby kerolauncher.rb```
