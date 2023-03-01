@@ -5,7 +5,7 @@ For Linux, Kerolauncher supports Wine or Lutris to launch the games, while for W
 
 MacOS and BSD-based systems are not supported by Lutris
 
-**Note:** Kerolauncher is still in testing-phase and, until version 0.1 is out, the code available in this repository will be unfinished and unstable. It surely has many bugs to be encountered or design choices to be changed, so I welcome all bug reports or feature requests!
+**Note:** Kerolauncher is still in testing phase and, until version 0.1 is out, the code available in this repository will be unfinished and unstable. It surely has many bugs to be encountered or design choices to be changed, so I welcome all bug reports or feature requests!
 
 # How to use
 Download kerolauncher.rb and (if you haven't yet) install Ruby on your system. Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
