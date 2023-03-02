@@ -27,6 +27,10 @@ $lutris_games_id = [13, 21, 22, 4, 36, 1]
 $backup_paths = ["/home/space/.wine/drive_c/users/space/AppData/Roaming/ShanghaiAlice"]
 #The path to the folders or files that you want to back up
 
+$backup_destination = ""
+#The path to where the backed up folders and files go
+#If it's empty or non-existant, it will default to the path where the terminal was launched from
+
 $screenshot_compressed_format = ".tohoss"
 #The file extension for compressed screenshots, make sure it's a unique extension
 
@@ -257,34 +261,34 @@ def backup_base()
     Dir::chdir($starting_path)
 end
 
-def backup_screenshots(mode)
-    foundfolder = false
-    paths = Dir::children(".")
-    for path in paths
-        if path == "snapshot" && File::directory?(path) == true
-            Dir::chdir(path)
-            foundfolder = true
-            break
-        end
-    end
-    if foundfolder == true
-        paths = Dir::children(".")
-        if Dir::exist?("screenshots_backup") == false
-            Dir::mkdir("screenshots_backup")
-        end
-        for path in paths
-            if mode == 0
-                deflate_file(path)
-            else
-                inflate_file(path)
-            end
-        end
-        #Dir::chdir("..")
-    else
-        puts "The screenshot folder 'snapshots' has not been found"
-        return
-    end
-end
+# def backup_screenshots(mode)
+#     foundfolder = false
+#     paths = Dir::children(".")
+#     for path in paths
+#         if path == "snapshot" && File::directory?(path) == true
+#             Dir::chdir(path)
+#             foundfolder = true
+#             break
+#         end
+#     end
+#     if foundfolder == true
+#         paths = Dir::children(".")
+#         if Dir::exist?("screenshots_backup") == false
+#             Dir::mkdir("screenshots_backup")
+#         end
+#         for path in paths
+#             if mode == 0
+#                 deflate_file(path)
+#             else
+#                 inflate_file(path)
+#             end
+#         end
+#         #Dir::chdir("..")
+#     else
+#         puts "The screenshot folder 'snapshots' has not been found"
+#         return
+#     end
+# end
 
 def backup_save()
     paths = Dir::children(".")
