@@ -9,11 +9,6 @@ require "zlib"
 #The use of Lutris is only available to operative systems supported by the application, such as Linux
 #Non-Windows systems require Wine to be installed in order to launch Windows executables
 
-$lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16", "Touhou 18"]
-#Add the names for Lutris entries here to be displayed
-$lutris_games_id = [13, 21, 22, 4, 36, 1]
-#The Lutris entry ID for the same programs above at the same order
-
 $games = ["Yuzu"]
 #Add the names for your programs here, like lutris_games
 $game_paths = ["/home/space/Applications/yuzu.AppImage"]
@@ -22,6 +17,11 @@ $wine_games = []
 #Add the names for your programs that you want to execute with Wine
 $wine_game_paths = []
 #Add the paths for the said programs above
+
+$lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16", "Touhou 18"]
+#Add the names for Lutris entries here to be displayed
+$lutris_games_id = [13, 21, 22, 4, 36, 1]
+#The Lutris entry ID for the same programs above at the same order
 
 #The path(s) to the games' executables, same order as above
 $backup_paths = ["/home/space/.wine/drive_c/users/space/AppData/Roaming/ShanghaiAlice"]
@@ -122,89 +122,79 @@ def inflate_file(filename) #Decompress file with deflate
     end
 end
 
-def read_answer(options, printstring, numrange) #Print options in 1 string and read user input
+def read_answer(options, printstring, errormessage, numrange) #Print options in 1 string and read user input
     puts options
     puts printstring
     answer = gets.chomp
     if numrange.include?(answer) == false
+        puts errormessage
         return false
     end
     answer = answer.to_i
     return answer
 end
 
-def read_answer_array(options, printstring, numrange) #Print options as an array and read user input
-    for option in options
+def read_answer_array(options_array, printstring, errormessage, numrange) #Print options as an array and read user input
+    for option in options_array
         print "#{option}     "
     end
     puts ""; puts printstring
     answer = gets.chomp
     if numrange.include?(answer) == false
+        puts errormessage
         return false
     end
     answer = answer.to_i
     return answer
 end
 
-def general_play(usewine) #Play games, and with or without wine
-    # if $lutris_games.length == 0
-    #     puts "You did not add any Touhou entries yet! Open the program file to setup the configuration"
-    #     return
-    # end
-    # iter = 0
-    # for path in $game_paths
-    #     if File::executable?(path) == true
-    #         game_check(path, true)
-    #     elsif File::dir?(path) == true
-    #         game_check(path, false)
-    #     end
-    #     #print "#{iter}: Touhou #{game}     "
-    #     #iter+=1
-    #         #add to array first
-    # end
+def read_answer_iterate(options_array, printstring, errormessage) #Print options as an array ordered by number and read user input
+    iteration=0
+    for option in options_array
+        if shownumber? == true
+            print "#{iteration}: #{option}     "
+            iteration+=1
+        else
+            print "#{option}     "
+        end
+    end
+    iteration-=1
+    puts ""; puts printstring
+    answer = gets.chomp
+    numrange = ""
+    for digit in 0..iteration
+        numrange += digit.to_s
+    end
+    if numrange.include?(answer) == false
+        puts errormessage
+        return false
+    end
+    answer = answer.to_i
+    return answer
+end
+
+def play_native(usewine?) #Play games, and with or without wine
     if $games.length == 0
         puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
         puts "Add the path to the executable to the list, alongside the game's number"
         return
     end
-    iter = 0
-    for game in $games
-        print "#{iter}:#{game}     "
-        iter+=1
-    end
-    puts ""
-    iter = $games.length - 1
-    puts "Choose a game to play"
-    gamechoice = gets.chomp
-    digits = ""
-    for digit in 0..$games.length - 1
-        digits += digit.to_s
-    end
-    if digits.include?(gamechoice) == false
-        puts "You need to choose one of the available games!"
-        return
-    end
-    gamechoice = gamechoice.to_i
-    correctinput = false
-    for number in 0..iter
-        if gamechoice == number
-            correctinput = true
-            break
-        end
-    end
-    if correctinput == true
-        if $global_command != ""
-            system($global_command)
-        end
-        puts "Launching #{gamechoice}..."
-        if usewine == true
-            system("wine '#{$game_paths[gamechoice]}'")
-        else
-            system("'./#{$game_paths[gamechoice]}'")
-        end
+    if usewine? == true
+        gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
     else
-        puts "You need to choose one of the available games!"
+        gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
+    end
+    if gamechoice == false
         return
+    end
+    if $global_command != ""
+        system($global_command)
+    end
+    puts "Launching #{gamechoice}..."
+    if usewine? == true
+        system("wine '#{$game_paths[gamechoice]}'")
+    else
+        system("'./#{$game_paths[gamechoice]}'")
     end
 end
 
@@ -215,47 +205,22 @@ end
 #     end
 # end
 
-def lutris_play() #Play games with Lutris, only for supported systems
+def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
         puts "You did not add any Lutris entries yet! Open Kerolauncher's file to setup the configuration"
         puts "To find out what ID your entries use, type 'lutris -l' in the terminal"
         return
     end
-    iter = 0
-    for game in $lutris_games
-        print "#{iter}:#{game}     "
-        iter+=1
-    end
-    puts ""
-    iter = $lutris_games.length - 1
-    puts "Choose a game to play"
-    gamechoice = gets.chomp
-    digits = ""
-    for digit in 0..$lutris_games.length - 1
-        digits += digit.to_s
-    end
-    if digits.include?(gamechoice) == false
-        puts "You need to choose one of the available games!"
+    gamechoice = read_answer_iterate($lutris_games, "Choose a game to play", "You need to choose one of the available games!")
+    if gamechoice == false
         return
     end
-    gamechoice = gamechoice.to_i
-    correctinput = false
-    for number in 0..iter
-        if gamechoice == number
-            correctinput = true
-            break
-        end
+    if $global_command != ""
+        system($global_command)
     end
-        if correctinput == true
-            if $global_command != ""
-                system($global_command)
-            end
-            puts "Launching #{gamechoice} (Lutris)..."
-            system("lutris rungameid/#{$lutris_games_id[gamechoice]}")
-        else
-            puts "You need to choose one of the available games!"
-            return
-        end
+    puts "Launching #{gamechoice} (Lutris)..."
+    system("lutris rungameid/#{$lutris_games_id[gamechoice]}")
+    return
 end
 
 def backup_base()
@@ -265,14 +230,12 @@ def backup_base()
         return
     end
     options = ["0. Backup screenshots", "1. Backup save"]
-    operation = read_answer_array(options, "Choose an operation", "01")
+    operation = read_answer_array(options, "Choose an operation", "Choose a correct operation!", "01")
     if operation == false
-        puts "Choose a correct operation!"
         return
     end
-    mode = read_answer("0. Compress and backup     1. Restore from backup", "Choose a mode", "01")
+    mode = read_answer("0. Compress and backup     1. Restore from backup", "Choose a mode", "Choose a correct mode!", "01")
     if mode == false
-        puts "Choose a correct mode!"
         return
     end
     for location in $backup_paths
@@ -349,20 +312,19 @@ while true
     puts ""; #puts "Kerolauncher version 0.1";
     puts title; puts ""
     options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
-    answer = read_answer_array(options, "Choose an operation", "01234")
+    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
     if answer == false
-        puts "You need to choose a correct operation!"
         return
     end
     case answer
     when 0
         return
     when 1
-        general_play(true)
+        play_native()
     when 2
-        general_play(false)
+        play_wine()
     when 3
-        lutris_play()
+        play_lutris()
     when 4
         backup_base()
     end
