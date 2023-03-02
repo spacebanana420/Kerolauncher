@@ -1,24 +1,37 @@
 require "zlib"
 
-#/////Configuration/////
+#///////////Configuration///////////
+#This is the entire configuration of the program. Manual setup is required from here.
+#All text settings need to be between quotation marks, and multiple text strings (inside []) need to be separated by commas
+#Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
+#Each entry can be separated between lines, as long as they are inside the brackets and a comma separates them
 
-$lutris_games = [7, 10, 11, 15, 16, 18]
-#Add your Touhou Lutris entries here (example: 7 or 07 for Touhou 7/07)
+#The use of Lutris is only available to operative systems supported by the application, such as Linux
+#Non-Windows systems require Wine to be installed in order to launch Windows executables
+
+$lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16", "Touhou 18"]
+#Add the names for Lutris entries here to be displayed
 $lutris_games_id = [13, 21, 22, 4, 36, 1]
-#The Lutris game ID for the Touhou games, order corresponds with the order of the games list above
+#The Lutris entry ID for the same programs above at the same order
 
-$touhou_games = []
-#Add your Touhou games here (example: 7 or 07 for Touhou 7/07)
-$touhou_game_locations = []
-#The path(s) to the games' executables, order corresponds to the order of the games list above
-$touhou_save_locations = ["/home/space/.wine/drive_c/users/space/AppData/Roaming/ShanghaiAlice"]
-#The path to Touhou data folders that you want to backup, either ShanghaiAlice for modern games or the path to the older games
+$games = ["Yuzu"]
+#Add the names for your programs here, like lutris_games
+$game_paths = ["/home/space/Applications/yuzu.AppImage"]
+
+$wine_games = []
+#Add the names for your programs that you want to execute with Wine
+$wine_game_paths = []
+#Add the paths for the said programs above
+
+#The path(s) to the games' executables, same order as above
+$backup_paths = ["/home/space/.wine/drive_c/users/space/AppData/Roaming/ShanghaiAlice"]
+#The path to the folders or files that you want to back up
 
 $screenshot_compressed_format = ".tohoss"
 #The file extension for compressed screenshots, make sure it's a unique extension
 
 $global_command = ""
-#Custom command that is executed everytime you launch a game
+#Optional custom command that is executed everytime you launch a game
 
 $ascii_art ="          ''''''''''          ''''''''''
       ''''##########''      ''##########''''
@@ -42,8 +55,9 @@ $ascii_art ="          ''''''''''          ''''''''''
     ''''çççççççççç''''çççççççç''''çççççççç''''
         ''''çççççççç''''çç''''çççççççç''''
             ''''''''''''''''''''''''''"
-#/////End of configuration/////
+#///////////End of configuration///////////
 
+# Quick config error checks for safety
 if $screenshot_compressed_format == ""
     puts "Configuration error! Compressed file extension is empty!"
     return
@@ -56,27 +70,27 @@ if $lutris_games.length != $lutris_games_id.length
     return
 end
 
-if $touhou_games.length != $touhou_game_locations.length
-    puts "Configuration error! Touhou games and locations are misconfigured!"
+if $games.length != $game_paths.length
+    puts "Configuration error! game names and locations are misconfigured!"
     return
 end
 
-for i in $touhou_game_locations
-    if Dir::exist?(i) == false
-        puts "Configuration error! Check if your Touhou game paths are correct."
+for i in $game_paths
+    if File::file?(i) == false
+        puts "Configuration error! Check if your game paths lead to a file"
         return
     end
 end
 
-for i in $touhou_save_locations
-    if Dir::exist?(i) == false
-        puts "Configuration error! Check if your Touhou save paths are correct."
+for i in $backup_paths
+    if File::exist?(i) == false
+        puts "Configuration error! Check if your backup paths are correct."
         return
     end
 end
 
-for i in 0..$touhou_save_locations.length - 1
-    if $touhou_save_locations[i] != 0 && $touhou_save_locations[i] != $touhou_save_locations[i-1]
+for i in 0..$backup_paths.length - 1
+    if $backup_paths[i] != 0 && $backup_paths[i] != $backup_paths[i-1]
         puts "Configuration error! There are 2 or more repeated save paths!"
         puts "Make sure each path is different for the save directories"
         return
@@ -85,7 +99,7 @@ end
 
 $starting_path = Dir::pwd
 
-def deflate_file(filename)
+def deflate_file(filename) #Compress file with deflate
     newfilename = filename + $screenshot_compressed_format
     if filename.include?(".bmp") == true && filename.include?($screenshot_compressed_format) == false
         input_file = File::read(filename)
@@ -99,7 +113,7 @@ def deflate_file(filename)
     end
 end
 
-def inflate_file(filename)
+def inflate_file(filename) #Decompress file with deflate
     if filename.include?($screenshot_compressed_format) == true
         filename_noext = filename.sub!($screenshot_compressed_format, "")
         input_file = File::read(filename)
@@ -108,9 +122,9 @@ def inflate_file(filename)
     end
 end
 
-def read_answer(options, printstr, numrange)
+def read_answer(options, printstring, numrange) #Print options in 1 string and read user input
     puts options
-    puts printstr
+    puts printstring
     answer = gets.chomp
     if numrange.include?(answer) == false
         return false
@@ -119,11 +133,11 @@ def read_answer(options, printstr, numrange)
     return answer
 end
 
-def read_answer_array(options, printstr, numrange)
+def read_answer_array(options, printstring, numrange) #Print options as an array and read user input
     for option in options
         print "#{option}     "
     end
-    puts ""; puts printstr
+    puts ""; puts printstring
     answer = gets.chomp
     if numrange.include?(answer) == false
         return false
@@ -132,13 +146,13 @@ def read_answer_array(options, printstr, numrange)
     return answer
 end
 
-def general_play(wine)
+def general_play(usewine) #Play games, and with or without wine
     # if $lutris_games.length == 0
     #     puts "You did not add any Touhou entries yet! Open the program file to setup the configuration"
     #     return
     # end
     # iter = 0
-    # for path in $touhou_game_locations
+    # for path in $game_paths
     #     if File::executable?(path) == true
     #         game_check(path, true)
     #     elsif File::dir?(path) == true
@@ -148,22 +162,22 @@ def general_play(wine)
     #     #iter+=1
     #         #add to array first
     # end
-    if $touhou_games.length == 0
-        puts "You did not add any Touhou entries yet! Open the program file to setup the configuration"
+    if $games.length == 0
+        puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
         puts "Add the path to the executable to the list, alongside the game's number"
         return
     end
     iter = 0
-    for game in $touhou_games
-        print "#{iter}: Touhou #{game}     "
+    for game in $games
+        print "#{iter}:#{game}     "
         iter+=1
     end
     puts ""
-    iter = $touhou_games.length - 1
+    iter = $games.length - 1
     puts "Choose a game to play"
     gamechoice = gets.chomp
     digits = ""
-    for digit in 0..$touhou_games.length - 1
+    for digit in 0..$games.length - 1
         digits += digit.to_s
     end
     if digits.include?(gamechoice) == false
@@ -182,11 +196,11 @@ def general_play(wine)
         if $global_command != ""
             system($global_command)
         end
-        puts "Launching Touhou #{gamechoice}..."
-        if wine == true
-            system("wine '#{$touhou_game_locations[gamechoice]}'")
+        puts "Launching #{gamechoice}..."
+        if usewine == true
+            system("wine '#{$game_paths[gamechoice]}'")
         else
-            system("'./#{$touhou_game_locations[gamechoice]}'")
+            system("'./#{$game_paths[gamechoice]}'")
         end
     else
         puts "You need to choose one of the available games!"
@@ -201,15 +215,15 @@ end
 #     end
 # end
 
-def lutris_play()
+def lutris_play() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
-        puts "You did not add any Touhou Lutris entries yet! Open the program file to setup the configuration"
+        puts "You did not add any Lutris entries yet! Open Kerolauncher's file to setup the configuration"
         puts "To find out what ID your entries use, type 'lutris -l' in the terminal"
         return
     end
     iter = 0
     for game in $lutris_games
-        print "#{iter}: Touhou #{game}     "
+        print "#{iter}:#{game}     "
         iter+=1
     end
     puts ""
@@ -236,7 +250,7 @@ def lutris_play()
             if $global_command != ""
                 system($global_command)
             end
-            puts "Launching Touhou #{gamechoice} (Lutris)..."
+            puts "Launching #{gamechoice} (Lutris)..."
             system("lutris rungameid/#{$lutris_games_id[gamechoice]}")
         else
             puts "You need to choose one of the available games!"
@@ -245,10 +259,9 @@ def lutris_play()
 end
 
 def backup_base()
-    if $touhou_save_locations.length == 0
-        puts "You did not add any Touhou data paths yet! Open the program file to setup the configuration"
-        puts "In modern Touhou games, they are located in ShanghaiAlice, inside AppData"
-        puts "In older Touhou games, the scorefile, screenshots and replays, are instead directly located in the game's folder"
+    if $backup_paths.length == 0
+        puts "You did not add any backup paths yet! Open the program file to setup the configuration"
+        puts "You can add the path to a file or folder"
         return
     end
     options = ["0. Backup screenshots", "1. Backup save"]
@@ -262,7 +275,7 @@ def backup_base()
         puts "Choose a correct mode!"
         return
     end
-    for location in $touhou_save_locations
+    for location in $backup_paths
         Dir::chdir(location)
         games = Dir::children(".")
         for game in games
