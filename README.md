@@ -43,6 +43,11 @@ You can find out which ID each Lutris entry has by typing ```lutris -l``` on the
 ## $backup_paths
 **Add the path to a file or folder to backup**
 
+## $backup_destination
+**The destination to where the backups of paths go**
+
+If this destination is not set or does not exist, it defaults to wherever the working directory of the terminal session was
+
 ## $global_command
 **A custom command to launch before starting a game**
 
