@@ -1,7 +1,7 @@
 # Kerolauncher
-Kerolauncher is a cross-platform CLI launcher for playing Touhou and configuring save data. The main target operative systems are Linux-based operative systems and Windows.
+Kerolauncher is a cross-platform CLI launcher for launching games and non-game programs. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, and more. The main target operative systems are Linux-based operative systems and Windows.
 
-For Linux, Kerolauncher supports Wine or Lutris to launch the games, while for Windows it executes the game natively (of course). Every other feature is system-agnostic.
+For Linux, Kerolauncher has support for Wine and Lutris to launch the games, while for Windows it only has support to execute the game natively. Every other feature is system-agnostic.
 
 MacOS and BSD-based systems are not supported by Lutris
 
@@ -10,8 +10,44 @@ MacOS and BSD-based systems are not supported by Lutris
 # How to use
 Download kerolauncher.rb and (if you haven't yet) install Ruby on your system. Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
 
-If you are on Linux/MacOS/BSD/etc, you also require wine to play and optionally Lutris to integrate the launcher with Lutris
+If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, you also require wine to play and optionally Lutris.
 
-Open kerolauncher.rb and explore the configuration settings, this setup is required
+Open kerolauncher.rb and change the configuration settings, this setup is required.
 
-After everything is configured, you can execute the launcher from a terminal with ```ruby kerolauncher.rb```
+After everything is configured, you can execute the launcher from a terminal with ```ruby kerolauncher.rb```.
+
+# Configuration
+Kerolauncher's configuration is located directly inside the program file. Configuration is mandatory as you need to add your games manually there for now
+Settings with [] mean that they support multiple entries. Each entry needs to be inside quotation marks and separated by commas, but they can be separated by lines as well, to make it easier to read.
+
+Windows users can ignore anything related to Wine and Lutris
+
+## $games, $wine_games and $lutris_games
+**Add the names of your game entries here**
+
+*Example: $games = ["Minecraft", "Touhou 12", "VLC Media Player"]*
+
+## $game_paths and $wine_paths
+**The paths to the games' executables**
+
+*Example (Unix-like): $game_paths = ["~/Games/Garry's Mod/hl2"]*
+
+*Example (Windows): $game_paths = ["C:\Games\Touhou 10\th10.exe"]*
+
+## $lutris_games_id
+**Add the Lutris games's IDs here**
+
+You can find out which ID each Lutris entry has by typing ```lutris -l``` on the terminal
+
+## $backup_paths
+**Add the path to a file or folder to backup**
+
+## $global_command
+**A custom command to launch before starting a game**
+
+*Example ```sudo cpupower frequency-set -g performance```*
+
+## $ascii_art
+**The ascii art to be displayed when launching Kerolauncher** 
+
+Any text can replace the art
