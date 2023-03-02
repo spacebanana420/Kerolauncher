@@ -57,3 +57,5 @@ If this destination is not set or does not exist, it defaults to wherever the wo
 **The ascii art to be displayed when launching Kerolauncher** 
 
 Any text can replace the art
+
+Replace with "" to disable
