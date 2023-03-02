@@ -18,6 +18,7 @@ After everything is configured, you can execute the launcher from a terminal wit
 
 # Configuration
 Kerolauncher's configuration is located directly inside the program file. Configuration is mandatory as you need to add your games manually there for now
+
 Settings with [] mean that they support multiple entries. Each entry needs to be inside quotation marks and separated by commas, but they can be separated by lines as well, to make it easier to read.
 
 Windows users can ignore anything related to Wine and Lutris
