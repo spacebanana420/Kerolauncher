@@ -31,6 +31,9 @@ $backup_destination = ""
 #The path to where the backed up folders and files go
 #If it's empty or non-existant, it will default to the path where the terminal was launched from
 
+$auto_backup = false
+#If set to true, everytime you close a game the launcher starts the backup process
+
 $screenshot_compressed_format = ".tohoss"
 #The file extension for compressed screenshots, make sure it's a unique extension
 
@@ -236,7 +239,7 @@ def backup_base()
         puts "You can add the path to a file or folder"
         return
     end
-    operation = read_answer("0. Backup screenshots     1. Backup save", "Choose an operation", "Choose a correct operation!", "01")
+    #operation = read_answer("0. Backup screenshots     1. Backup save", "Choose an operation", "Choose a correct operation!", "01")
     for path in $backup_paths
         pathfile = get_filename_from_path(path)
         if File::file?(path) == true
@@ -387,6 +390,10 @@ while true
     when 3
         play_lutris()
     when 4
+        backup_base()
+    end
+
+    if answer >= 1 && answer < 4 && $auto_backup == true
         backup_base()
     end
     puts ""
