@@ -17,7 +17,7 @@ Open kerolauncher.rb and change the configuration settings, this setup is requir
 After everything is configured, you can execute the launcher from a terminal with ```ruby kerolauncher.rb```.
 
 # Configuration
-Kerolauncher's configuration is located directly inside the program file. Configuration is mandatory as you need to add your games manually there for now
+Kerolauncher's configuration is located directly inside the program file. Configuration for game names, game paths and backup paths is required.
 
 Settings with [] mean that they support multiple entries. Each entry needs to be inside quotation marks and separated by commas, but they can be separated by lines as well, to make it easier to read.
 
