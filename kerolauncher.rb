@@ -228,7 +228,7 @@ def play_lutris() #Play games with Lutris, only for supported systems
 end
 
 def backup_base()
-    if $backup_destination == "" || File::exist?($backup_destination) == false
+    if $backup_destination == "" || File::exist?($backup_destination) == false || File::file?($backup_destination) == true
         $backup_destination = $starting_path
     end
     if $backup_paths.length == 0
