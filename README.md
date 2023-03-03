@@ -52,6 +52,11 @@ Warning: If you add a folder, every single file and folder inside it will be cop
 
 If this destination is not set or does not exist, it defaults to wherever the working directory of the terminal session was
 
+## $auto_backup
+**If the launcher should start the backup process after you close the game you were playing**
+
+Needs to be set to ```true``` or ```false```
+
 ## $global_command
 **A custom command to launch before starting a game**
 
