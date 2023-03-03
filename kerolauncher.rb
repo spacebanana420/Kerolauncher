@@ -12,6 +12,7 @@ require "zlib"
 $games = ["Yuzu"]
 #Add the names for your programs here, like lutris_games
 $game_paths = ["/home/space/Applications/yuzu.AppImage"]
+#The path(s) to the games' executables, same order as above
 
 $wine_games = []
 #Add the names for your programs that you want to execute with Wine
@@ -23,7 +24,6 @@ $lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16",
 $lutris_games_id = [13, 21, 22, 4, 36, 1]
 #The Lutris entry ID for the same programs above at the same order
 
-#The path(s) to the games' executables, same order as above
 $backup_paths = ["/home/space/Imagens/froge.png"]
 #The path to the folders or files that you want to back up
 
