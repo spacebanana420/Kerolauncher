@@ -55,7 +55,7 @@ If this destination is not set or does not exist, it defaults to wherever the wo
 ## $auto_backup
 **If the launcher should start the backup process after you close the game you were playing**
 
-Needs to be set to ```true``` or ```false```
+Can be set to ```true``` or ```false```
 
 ## $global_command
 **A custom command to launch before starting a game**
