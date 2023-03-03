@@ -21,7 +21,7 @@ Kerolauncher's configuration is located directly inside the program file. Config
 
 Settings with [] mean that they support multiple entries. Each entry needs to be inside quotation marks and separated by commas, but they can be separated by lines as well, to make it easier to read.
 
-Windows users can ignore anything related to Wine and Lutris
+Windows users can ignore everything related to Wine and Lutris
 
 ## $games, $wine_games and $lutris_games
 **Add the names of your game entries here**
@@ -30,6 +30,8 @@ Windows users can ignore anything related to Wine and Lutris
 
 ## $game_paths and $wine_paths
 **The paths to the games' executables**
+
+In case of $wine_paths entries, the games will be executed with Wine, to add support for Windows-only programs on other operative systems
 
 *Example (Unix-like): $game_paths = ["~/Games/Garry's Mod/hl2"]*
 
@@ -42,6 +44,8 @@ You can find out which ID each Lutris entry has by typing ```lutris -l``` on the
 
 ## $backup_paths
 **Add the path to a file or folder to backup**
+
+Warning: If you add a folder, every single file and folder inside it will be copied, so be careful adding huge folders to the entries
 
 ## $backup_destination
 **The destination to where the backups of paths go**
