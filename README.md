@@ -51,7 +51,7 @@ If this destination is not set or does not exist, it defaults to wherever the wo
 ## $global_command
 **A custom command to launch before starting a game**
 
-*Example ```sudo cpupower frequency-set -g performance```*
+*Example: ```sudo cpupower frequency-set -g performance```*
 
 ## $ascii_art
 **The ascii art to be displayed when launching Kerolauncher** 
