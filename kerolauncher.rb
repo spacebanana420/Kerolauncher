@@ -24,7 +24,7 @@ $lutris_games_id = [13, 21, 22, 4, 36, 1]
 #The Lutris entry ID for the same programs above at the same order
 
 #The path(s) to the games' executables, same order as above
-$backup_paths = ["/home/space/.wine/drive_c/users/space/AppData/Roaming/ShanghaiAlice"]
+$backup_paths = ["/home/space/Imagens/froge.png"]
 #The path to the folders or files that you want to back up
 
 $backup_destination = ""
@@ -94,7 +94,7 @@ for i in $backup_paths
 end
 
 for i in 0..$backup_paths.length - 1
-    if $backup_paths[i] != 0 && $backup_paths[i] != $backup_paths[i-1]
+    if i != 0 && $backup_paths[i] == $backup_paths[i-1]
         puts "Configuration error! There are 2 or more repeated save paths!"
         puts "Make sure each path is different for the save directories"
         return
@@ -177,13 +177,13 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
     return answer
 end
 
-def play_native(usewine?) #Play games, and with or without wine
+def play_native(usewine) #Play games, and with or without wine
     if $games.length == 0
         puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
         puts "Add the path to the executable to the list, alongside the game's number"
         return
     end
-    if usewine? == true
+    if usewine == true
         gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
     else
         gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
@@ -195,7 +195,7 @@ def play_native(usewine?) #Play games, and with or without wine
         system($global_command)
     end
     puts "Launching #{gamechoice}..."
-    if usewine? == true
+    if usewine == true
         system("wine '#{$game_paths[gamechoice]}'")
     else
         system("'./#{$game_paths[gamechoice]}'")
@@ -228,38 +228,76 @@ def play_lutris() #Play games with Lutris, only for supported systems
 end
 
 def backup_base()
+    if $backup_destination == "" || File::exist?($backup_destination) == false
+        $backup_destination = $starting_path
+    end
     if $backup_paths.length == 0
         puts "You did not add any backup paths yet! Open the program file to setup the configuration"
         puts "You can add the path to a file or folder"
         return
     end
-    options = ["0. Backup screenshots", "1. Backup save"]
-    operation = read_answer_array(options, "Choose an operation", "Choose a correct operation!", "01")
-    if operation == false
-        return
-    end
-    mode = read_answer("0. Compress and backup     1. Restore from backup", "Choose a mode", "Choose a correct mode!", "01")
-    if mode == false
-        return
-    end
-    for location in $backup_paths
-        Dir::chdir(location)
-        games = Dir::children(".")
-        for game in games
-            if game.include?("th") == true
-                Dir::chdir(game)
-                if operation == 0
-                    backup_screenshots(mode)
-                else
-                    backup_save(mode)
-                end
-                Dir::chdir("..")
-            end
+    operation = read_answer("0. Backup screenshots     1. Backup save", "Choose an operation", "Choose a correct operation!", "01")
+    for path in $backup_paths
+        pathfile = get_filename_from_path(path)
+        if File::file?(path) == true
+            backupfile = File::read(path)
+            File::write("#{$backup_destination}/#{pathfile}", backupfile)
         end
-        Dir::chdir("..")
+        #copy to destination
     end
-    Dir::chdir($starting_path)
 end
+
+def get_filename_from_path(path)
+    filename = ""
+    path_characters = path.chars.reverse
+    filename_characters = Array::new
+    for char in 0..path_characters.length-1
+        if path_characters[char] == "/" || path_characters[char] == "'\'"
+            break
+        end
+        filename_characters.push(path_characters[char])
+    end
+    filename_characters = filename_characters.reverse
+    for char in 0..filename_characters.length-1
+        filename += filename_characters[char]
+    end
+    puts filename
+    return filename
+end
+
+# def backup_base()
+#     if $backup_paths.length == 0
+#         puts "You did not add any backup paths yet! Open the program file to setup the configuration"
+#         puts "You can add the path to a file or folder"
+#         return
+#     end
+#     options = ["0. Backup screenshots", "1. Backup save"]
+#     operation = read_answer_array(options, "Choose an operation", "Choose a correct operation!", "01")
+#     if operation == false
+#         return
+#     end
+#     mode = read_answer("0. Compress and backup     1. Restore from backup", "Choose a mode", "Choose a correct mode!", "01")
+#     if mode == false
+#         return
+#     end
+#     for location in $backup_paths
+#         Dir::chdir(location)
+#         games = Dir::children(".")
+#         for game in games
+#             if game.include?("th") == true
+#                 Dir::chdir(game)
+#                 if operation == 0
+#                     backup_screenshots(mode)
+#                 else
+#                     backup_save(mode)
+#                 end
+#                 Dir::chdir("..")
+#             end
+#         end
+#         Dir::chdir("..")
+#     end
+#     Dir::chdir($starting_path)
+# end
 
 # def backup_screenshots(mode)
 #     foundfolder = false
