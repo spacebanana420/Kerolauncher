@@ -242,8 +242,27 @@ def backup_base()
         if File::file?(path) == true
             backupfile = File::read(path)
             File::write("#{$backup_destination}/#{pathfile}", backupfile)
+        else
+            backup_dir(path, $backup_destination)
+            Dir::chdir($starting_path)
         end
         #copy to destination
+    end
+end
+
+def backup_dir(backuppath, destination)
+    dirname = get_filename_from_path(backuppath)
+    Dir::chdir(backuppath)
+    Dir::mkdir("#{destination}/#{dirname}")
+    for path in backuppath
+        pathname = get_filename_from_path(path)
+        if File::file?(path) == true
+            backupfile = File::read(path)
+            File::write("#{destination}/#{pathname}", backupfile)
+        else
+            backup_dir(path,"#{destination}/#{pathname}")
+            Dir::chdir("..")
+        end
     end
 end
 
