@@ -25,7 +25,7 @@ $lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16",
 $lutris_games_id = [13, 21, 22, 4, 36, 1]
 #The Lutris entry ID for the same programs above at the same order
 
-$backup_paths = ["/home/space/Imagens/froge.png"]
+$backup_paths = ["/home/space/Imagens/Screenshots"]
 #The path to the folders or files that you want to back up
 
 $backup_destination = ""
@@ -76,7 +76,7 @@ $ascii_art ="          ''''''''''          ''''''''''
 # end
 
 # Quick config error checks for safety
-error_output = ""
+error_output = Array.new
 
 lutris_thread = Thread::new do
     if $lutris_games.length != $lutris_games_id.length
@@ -86,12 +86,12 @@ end
 
 games_thread = Thread::new do
     if $games.length != $game_paths.length
-        error_output += "Configuration error! Game names and paths are misconfigured!\n\n"
+        error_output.push("Configuration error! Game names and paths are misconfigured!")
     end
     for i in $game_paths
         if File::file?(i) == false
-            error_output += "Configuration error! Check if your game paths lead to a file\n\n"
-            return
+            error_output.push("Configuration error! Check if your game paths lead to a file")
+            break
         end
     end
 end
@@ -99,13 +99,13 @@ end
 
 wine_thread = Thread::new do
     if $wine_games.length != $wine_game_paths.length
-        error_output += "Configuration error! Wine game names and paths are misconfigured!\n\n"
+        error_output.push("Configuration error! Wine game names and paths are misconfigured!")
     end
 
     for i in $wine_game_paths
         if File::file?(i) == false
-            error_output += "Configuration error! Check if your Wine game paths lead to a file\n\n"
-            return
+            error_output.push("Configuration error! Check if your Wine game paths lead to a file")
+            break
         end
     end
 end
@@ -113,24 +113,24 @@ end
 backup_thread = Thread::new do
     for i in $backup_paths
         if File::exist?(i) == false
-            error_output += "Configuration error! Check if your backup paths are correct.\n\n"
-            return
+            error_output.push("Configuration error! Check if your backup paths are correct.")
         end
     end
 
     for i in 0..$backup_paths.length - 1
         if i != 0 && $backup_paths[i] == $backup_paths[i-1]
-            error_output += "Configuration error! There are 2 or more repeated save paths!\n"
-            error_output += "Make sure each path is different for the save directories"
-            return
+            error_output.push("Configuration error! There are 2 or more repeated save paths!\nMake sure each path is different for the save directories")
+            break
         end
     end
 end
 
 lutris_thread.join; games_thread.join; wine_thread.join; backup_thread.join
 
-if error_output != ""
-    puts error_output
+if error_output.length != 0
+    for error in error_output
+        puts error
+    end
     return
 end
 
@@ -271,17 +271,22 @@ def backup_base()
     end
 end
 
-def backup_dir(backuppath, destination)
+def backup_dir(backuppath, destination) #needs fix
     dirname = get_filename_from_path(backuppath)
     Dir::chdir(backuppath)
-    Dir::mkdir("#{destination}/#{dirname}")
-    for path in backuppath
+    if Dir::exist?("#{destination}/#{dirname}") == false
+        Dir::mkdir("#{destination}/#{dirname}")
+    end
+    for path in Dir::children(backuppath)
         pathname = get_filename_from_path(path)
         if File::file?(path) == true
             backupfile = File::read(path)
-            File::write("#{destination}/#{pathname}", backupfile)
+            File::write("#{destination}/#{dirname}/#{pathname}", backupfile)
         else
-            backup_dir(path,"#{destination}/#{pathname}")
+            if Dir::exist?("#{destination}/#{dirname}/#{pathname}") == false
+                Dir::mkdir("#{destination}/#{dirname}/#{pathname}")
+            end
+            backup_dir(path, "#{destination}/#{dirname}")
             Dir::chdir("..")
         end
     end
