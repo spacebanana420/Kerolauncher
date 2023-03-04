@@ -179,7 +179,7 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
     return answer
 end
 
-def play_native(usewine) #Play games, and with or without wine
+def play_game(usewine) #Play games, and with or without wine
     if $games.length == 0
         puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
         puts "Add the path to the executable to the list, alongside the game's number"
@@ -304,9 +304,9 @@ while true
     when 0
         return
     when 1
-        play_native(false)
+        play_game(false)
     when 2
-        play_wine()
+        play_game(true)
     when 3
         play_lutris()
     when 4
