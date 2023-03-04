@@ -81,13 +81,25 @@ if $lutris_games.length != $lutris_games_id.length
 end
 
 if $games.length != $game_paths.length
-    puts "Configuration error! game names and locations are misconfigured!"
+    puts "Configuration error! Game names and paths are misconfigured!"
     return
 end
 
 for i in $game_paths
     if File::file?(i) == false
         puts "Configuration error! Check if your game paths lead to a file"
+        return
+    end
+end
+
+if $wine_games.length != $wine_game_paths.length
+    puts "Configuration error! Wine game names and paths are misconfigured!"
+    return
+end
+
+for i in $wine_game_paths
+    if File::file?(i) == false
+        puts "Configuration error! Check if your Wine game paths lead to a file"
         return
     end
 end
@@ -241,7 +253,6 @@ def backup_base()
             backup_dir(path, $backup_destination)
             Dir::chdir($starting_path)
         end
-        #copy to destination
     end
 end
 
