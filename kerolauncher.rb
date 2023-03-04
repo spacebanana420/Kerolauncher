@@ -68,8 +68,6 @@ $ascii_art ="          ''''''''''          ''''''''''
 #//////////////////////////////////////////
 
 
-# Quick config error checks for safety
-
 # if $compressed_format == ""
 #     puts "Configuration error! Compressed file extension is empty!"
 #     return
@@ -77,48 +75,63 @@ $ascii_art ="          ''''''''''          ''''''''''
 #     $compressed_format = "." + $compressed_format
 # end
 
-if $lutris_games.length != $lutris_games_id.length
-    puts "Configuration error! Lutris games or Lutris game IDs are misconfigured!"
+# Quick config error checks for safety
+error_output = ""
+
+lutris_thread = Thread::new do
+    if $lutris_games.length != $lutris_games_id.length
+        error_output += "Configuration error! Lutris games or Lutris game IDs are misconfigured!\n\n"
+    end
+end
+
+games_thread = Thread::new do
+    if $games.length != $game_paths.length
+        error_output += "Configuration error! Game names and paths are misconfigured!\n\n"
+    end
+    for i in $game_paths
+        if File::file?(i) == false
+            error_output += "Configuration error! Check if your game paths lead to a file\n\n"
+            return
+        end
+    end
+end
+
+
+wine_thread = Thread::new do
+    if $wine_games.length != $wine_game_paths.length
+        error_output += "Configuration error! Wine game names and paths are misconfigured!\n\n"
+    end
+
+    for i in $wine_game_paths
+        if File::file?(i) == false
+            error_output += "Configuration error! Check if your Wine game paths lead to a file\n\n"
+            return
+        end
+    end
+end
+
+backup_thread = Thread::new do
+    for i in $backup_paths
+        if File::exist?(i) == false
+            error_output += "Configuration error! Check if your backup paths are correct.\n\n"
+            return
+        end
+    end
+
+    for i in 0..$backup_paths.length - 1
+        if i != 0 && $backup_paths[i] == $backup_paths[i-1]
+            error_output += "Configuration error! There are 2 or more repeated save paths!\n"
+            error_output += "Make sure each path is different for the save directories"
+            return
+        end
+    end
+end
+
+lutris_thread.join; games_thread.join; wine_thread.join; backup_thread.join
+
+if error_output != ""
+    puts error_output
     return
-end
-
-if $games.length != $game_paths.length
-    puts "Configuration error! Game names and paths are misconfigured!"
-    return
-end
-
-for i in $game_paths
-    if File::file?(i) == false
-        puts "Configuration error! Check if your game paths lead to a file"
-        return
-    end
-end
-
-if $wine_games.length != $wine_game_paths.length
-    puts "Configuration error! Wine game names and paths are misconfigured!"
-    return
-end
-
-for i in $wine_game_paths
-    if File::file?(i) == false
-        puts "Configuration error! Check if your Wine game paths lead to a file"
-        return
-    end
-end
-
-for i in $backup_paths
-    if File::exist?(i) == false
-        puts "Configuration error! Check if your backup paths are correct."
-        return
-    end
-end
-
-for i in 0..$backup_paths.length - 1
-    if i != 0 && $backup_paths[i] == $backup_paths[i-1]
-        puts "Configuration error! There are 2 or more repeated save paths!"
-        puts "Make sure each path is different for the save directories"
-        return
-    end
 end
 
 $starting_path = Dir::pwd
