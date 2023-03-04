@@ -1,6 +1,7 @@
 require "zlib"
-
+#///////////////////////////////////
 #///////////Configuration///////////
+#///////////////////////////////////
 #This is the entire configuration of the program. Manual setup is required from here.
 #All text settings need to be between quotation marks, and multiple text strings (inside []) need to be separated by commas
 #Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
@@ -62,7 +63,9 @@ $ascii_art ="          ''''''''''          ''''''''''
     ''''çççççççççç''''çççççççç''''çççççççç''''
         ''''çççççççç''''çç''''çççççççç''''
             ''''''''''''''''''''''''''"
+#//////////////////////////////////////////
 #///////////End of configuration///////////
+#//////////////////////////////////////////
 
 # Quick config error checks for safety
 if $screenshot_compressed_format == ""
@@ -158,12 +161,8 @@ end
 def read_answer_iterate(options_array, printstring, errormessage) #Print options as an array ordered by number and read user input
     iteration=0
     for option in options_array
-        if shownumber? == true
-            print "#{iteration}: #{option}     "
-            iteration+=1
-        else
-            print "#{option}     "
-        end
+        print "#{iteration}: #{option}     "
+        iteration+=1
     end
     iteration-=1
     puts ""; puts printstring
@@ -189,7 +188,7 @@ def play_native(usewine) #Play games, and with or without wine
     if usewine == true
         gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
     else
-        gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
+        gamechoice = read_answer_iterate($games, "Choose a game to play", "You need to choose one of the available games!")
     end
     if gamechoice == false
         return
@@ -201,7 +200,7 @@ def play_native(usewine) #Play games, and with or without wine
     if usewine == true
         system("wine '#{$game_paths[gamechoice]}'")
     else
-        system("'./#{$game_paths[gamechoice]}'")
+        system("'#{$game_paths[gamechoice]}'")
     end
 end
 
@@ -384,7 +383,7 @@ while true
     when 0
         return
     when 1
-        play_native()
+        play_native(false)
     when 2
         play_wine()
     when 3
