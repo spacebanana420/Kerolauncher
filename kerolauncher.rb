@@ -35,7 +35,7 @@ $backup_destination = ""
 $auto_backup = false
 #If set to true, everytime you close a game the launcher starts the backup process
 
-$screenshot_compressed_format = ".tohoss"
+$compressed_format = ".tohoss"
 #The file extension for compressed screenshots, make sure it's a unique extension
 
 $global_command = ""
@@ -67,13 +67,15 @@ $ascii_art ="          ''''''''''          ''''''''''
 #///////////End of configuration///////////
 #//////////////////////////////////////////
 
+
 # Quick config error checks for safety
-if $screenshot_compressed_format == ""
-    puts "Configuration error! Compressed file extension is empty!"
-    return
-elsif $screenshot_compressed_format.include?(".") == false
-    $screenshot_compressed_format = "." + $screenshot_compressed_format
-end
+
+# if $compressed_format == ""
+#     puts "Configuration error! Compressed file extension is empty!"
+#     return
+# elsif $compressed_format.include?(".") == false
+#     $compressed_format = "." + $compressed_format
+# end
 
 if $lutris_games.length != $lutris_games_id.length
     puts "Configuration error! Lutris games or Lutris game IDs are misconfigured!"
@@ -122,8 +124,8 @@ end
 $starting_path = Dir::pwd
 
 def deflate_file(filename) #Compress file with deflate
-    newfilename = filename + $screenshot_compressed_format
-    if filename.include?(".bmp") == true && filename.include?($screenshot_compressed_format) == false
+    newfilename = filename + $compressed_format
+    if filename.include?(".bmp") == true && filename.include?($compressed_format) == false
         input_file = File::read(filename)
         output_file = Zlib::Deflate.deflate(input_file, 5)
         File::write(newfilename, output_file)
@@ -136,8 +138,8 @@ def deflate_file(filename) #Compress file with deflate
 end
 
 def inflate_file(filename) #Decompress file with deflate
-    if filename.include?($screenshot_compressed_format) == true
-        filename_noext = filename.sub!($screenshot_compressed_format, "")
+    if filename.include?($compressed_format) == true
+        filename_noext = filename.sub!($compressed_format, "")
         input_file = File::read(filename)
         output_file = Zlib::Inflate.inflate(input_file)
         File::write(filename_noext, output_file)
