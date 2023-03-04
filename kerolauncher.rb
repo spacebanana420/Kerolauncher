@@ -196,7 +196,7 @@ def play_native(usewine) #Play games, and with or without wine
     if $global_command != ""
         system($global_command)
     end
-    puts "Launching #{gamechoice}..."
+    puts "Launching #{$games[gamechoice]}..."
     if usewine == true
         system("wine '#{$game_paths[gamechoice]}'")
     else
@@ -224,7 +224,7 @@ def play_lutris() #Play games with Lutris, only for supported systems
     if $global_command != ""
         system($global_command)
     end
-    puts "Launching #{gamechoice} (Lutris)..."
+    puts "Launching #{$lutris_games[gamechoice]} (Lutris)..."
     system("lutris rungameid/#{$lutris_games_id[gamechoice]}")
     return
 end
