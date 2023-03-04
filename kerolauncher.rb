@@ -204,13 +204,6 @@ def play_game(usewine) #Play games, and with or without wine
     end
 end
 
-# def game_check(path, mode)
-#     game_number = ""
-#     if mode == true
-#     else
-#     end
-# end
-
 def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
         puts "You did not add any Lutris entries yet! Open Kerolauncher's file to setup the configuration"
