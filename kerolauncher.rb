@@ -261,6 +261,7 @@ def backup_base()
     #operation = read_answer("0. Backup screenshots     1. Backup save", "Choose an operation", "Choose a correct operation!", "01")
     for path in $backup_paths
         pathfile = get_filename_from_path(path)
+        puts "Backing up #{pathfile}"
         if File::file?(path) == true
             backupfile = File::read(path)
             File::write("#{$backup_destination}/#{pathfile}", backupfile)
