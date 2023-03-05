@@ -25,7 +25,7 @@ $lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16",
 $lutris_games_id = [13, 21, 22, 4, 36, 1]
 #The Lutris entry ID for the same programs above at the same order
 
-$backup_paths = ["/home/space/Imagens/Screenshots"]
+$backup_paths = ["/home/space/Imagens/Portraits"]
 #The path to the folders or files that you want to back up
 
 $backup_destination = ""
@@ -135,6 +135,12 @@ if error_output.length != 0
 end
 
 $starting_path = Dir::pwd
+
+if "ABCDEFGHIJKLMNOPQRSTUVWXYZ".include?($starting_path.chars[0]) == true && $starting_path.chars[1] == ":"
+    platform = 0 #Windows
+else
+    platform = 1 #Non Windows: Linux, MacOS, BSD, Solaris, etc
+end
 
 def deflate_file(filename) #Compress file with deflate
     newfilename = filename + $compressed_format
