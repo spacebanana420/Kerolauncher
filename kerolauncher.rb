@@ -221,11 +221,20 @@ def execute_silent(command)
 end
 
 def play_game(usewine) #Play games, and with or without wine
-    if $games.length == 0
-        puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
-        puts "Add the path to the executable to the list, alongside the game's number"
-        return
+    if usewine == true
+        if $wine_games.length == 0
+            puts "You did not add any Wine game entries yet! Open Kerolauncher's file to setup the configuration"
+            puts "Add the path to the executable to the list, alongside the game's number"
+            return
+        end
+    else
+        if $games.length == 0
+            puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
+            puts "Add the path to the executable to the list, alongside the game's number"
+            return
+        end
     end
+
     if usewine == true
         gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
     else
@@ -327,12 +336,13 @@ end
 if $ascii_art != ""
     puts $ascii_art
 end
-while true
-    title = "////////////////////////////
+title = "////////////////////////////
 //Kerolauncher version 0.1//
 ////////////////////////////"
-    puts ""; #puts "Kerolauncher version 0.1";
-    puts title; puts ""
+puts ""; #puts "Kerolauncher version 0.1";
+puts title; puts ""
+
+while true
     options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
     answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
     if answer == false
