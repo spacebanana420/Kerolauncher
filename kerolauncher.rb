@@ -274,7 +274,7 @@ end
 def backup_dir(backuppath, destination)
     dirname = get_filename_from_path(backuppath)
     Dir::chdir(backuppath)
-    if Dir::exist?("#{destination}/#{dirname}") == false #needs fix
+    if Dir::exist?("#{destination}/#{dirname}") == false
         Dir::mkdir("#{destination}/#{dirname}")
     end
     for path in Dir::children(backuppath)
@@ -286,7 +286,7 @@ def backup_dir(backuppath, destination)
             if Dir::exist?("#{destination}/#{dirname}/#{pathname}") == false
                 Dir::mkdir("#{destination}/#{dirname}/#{pathname}")
             end
-            backup_dir("#{backuppath}/#{path}", "#{destination}/#{dirname}/#{pathname}")
+            backup_dir("#{backuppath}/#{path}", "#{destination}/#{dirname}")
             Dir::chdir("..")
         end
     end
