@@ -10,9 +10,9 @@ require "zlib"
 #The use of Lutris is only available to operative systems supported by the application, such as Linux
 #Non-Windows systems require Wine to be installed in order to launch Windows executables
 
-$games = ["Yuzu"]
+$games = []
 #Add the names for your programs here, like lutris_games
-$game_paths = ["/home/space/Applications/yuzu.AppImage"]
+$game_paths = []
 #The path(s) to the games' executables, same order as above
 
 $wine_games = []
@@ -20,12 +20,12 @@ $wine_games = []
 $wine_game_paths = []
 #Add the paths for the said programs above
 
-$lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 15", "Touhou 16", "Touhou 18"]
+$lutris_games = []
 #Add the names for Lutris entries here to be displayed
-$lutris_games_id = [13, 21, 22, 4, 36, 1]
+$lutris_games_id = []
 #The Lutris entry ID for the same programs above at the same order
 
-$backup_paths = ["/home/space/Imagens/Portraits"]
+$backup_paths = []
 #The path to the folders or files that you want to back up
 
 $backup_destination = ""
@@ -337,7 +337,7 @@ if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 0.1//
+//Kerolauncher version 0.2//
 ////////////////////////////"
 puts ""; #puts "Kerolauncher version 0.1";
 puts title; puts ""
