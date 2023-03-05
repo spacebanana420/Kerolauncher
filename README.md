@@ -35,7 +35,9 @@ In case of $wine_paths entries, the games will be executed with Wine, to add sup
 
 *Example (Unix-like): $game_paths = ["~/Games/Garry's Mod/hl2"]*
 
-*Example (Windows): $game_paths = ["C:\Games\Touhou 10\th10.exe"]*
+*Example (Windows): $game_paths = ["C:/Games/Touhou 10/th10.exe"]*
+
+**Note for Windows users:** Windows might use the backslash ```"\"``` for paths, but to not mess up the strings, both Ruby and my program use ```"/"``` and you should add your directories with the forward slash instead 
 
 ## $lutris_games_id
 **Add the Lutris games's IDs here**
