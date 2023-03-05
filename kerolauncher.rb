@@ -214,9 +214,9 @@ end
 
 def execute_silent(command)
     if $platform == 0
-        system("#{command} >> NUL")
+        return system("#{command} >> NUL")
     else
-        system("#{command} >> /dev/null")
+        return system("#{command} >> /dev/null")
     end
 end
 
