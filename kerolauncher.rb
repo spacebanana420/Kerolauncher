@@ -137,9 +137,9 @@ end
 $starting_path = Dir::pwd
 
 if "ABCDEFGHIJKLMNOPQRSTUVWXYZ".include?($starting_path.chars[0]) == true && $starting_path.chars[1] == ":"
-    platform = 0 #Windows
+    $platform = 0 #Windows
 else
-    platform = 1 #Non Windows: Linux, MacOS, BSD, Solaris, etc
+    $platform = 1 #Non Windows: Linux, MacOS, BSD, Solaris, etc
 end
 
 def deflate_file(filename) #Compress file with deflate
@@ -210,6 +210,14 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
     end
     answer = answer.to_i
     return answer
+end
+
+def execute_silent(command)
+    if $platform == 0
+        system("#{command} >> NUL")
+    else
+        system("#{command} >> /dev/null")
+    end
 end
 
 def play_game(usewine) #Play games, and with or without wine
