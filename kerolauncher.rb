@@ -306,7 +306,6 @@ def get_filename_from_path(path)
     for char in 0..filename_characters.length-1
         filename += filename_characters[char]
     end
-    puts filename
     return filename
 end
 
