@@ -38,8 +38,11 @@ $auto_backup = false
 $compressed_format = ".tohoss"
 #The file extension for compressed screenshots, make sure it's a unique extension
 
-$global_command = ""
+$start_command = ""
 #Optional custom command that is executed everytime you launch a game
+
+$close_command = ""
+#Optional custom command that is executed after you close the game
 
 $ascii_art ="          ''''''''''          ''''''''''
       ''''##########''      ''##########''''
@@ -243,14 +246,17 @@ def play_game(usewine) #Play games, and with or without wine
     if gamechoice == false
         return
     end
-    if $global_command != ""
-        system($global_command)
+    if $start_command != ""
+        system($start_command)
     end
     puts "Launching #{$games[gamechoice]}..."
     if usewine == true
         system("wine '#{$game_paths[gamechoice]}'")
     else
         system("'#{$game_paths[gamechoice]}'")
+    end
+    if $close_command != ""
+        system($close_command)
     end
 end
 
@@ -264,12 +270,15 @@ def play_lutris() #Play games with Lutris, only for supported systems
     if gamechoice == false
         return
     end
-    if $global_command != ""
-        system($global_command)
+    if $start_command != ""
+        system($start_command)
     end
     puts "Launching #{$lutris_games[gamechoice]} (Lutris)..."
     system("lutris rungameid/#{$lutris_games_id[gamechoice]}")
-    return
+
+    if $close_command != ""
+        system($close_command)
+    end
 end
 
 def backup_base()
