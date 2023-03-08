@@ -352,26 +352,44 @@ puts ""; #puts "Kerolauncher version 0.1";
 puts title; puts ""
 
 while true
-    options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
-    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
-    if answer == false
-        return
-    end
-    case answer
-    when 0
-        return
-    when 1
-        play_game(false)
-    when 2
-        play_game(true)
-    when 3
-        play_lutris()
-    when 4
-        backup_base()
-    end
-
-    if answer >= 1 && answer < 4 && $auto_backup == true
-        backup_base()
+    if $platform == 0 #For Windows
+        options = ["0. Exit", "1. Play", "2. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
+        if answer == false
+            return
+        end
+        case answer
+        when 0
+            return
+        when 1
+            play_game(false)
+        when 2
+            backup_base()
+        end
+        if answer == 1 && $auto_backup == true
+            backup_base()
+        end
+    else # For every other operative system
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+        if answer == false
+            return
+        end
+        case answer
+        when 0
+            return
+        when 1
+            play_game(false)
+        when 2
+            play_game(true)
+        when 3
+            play_lutris()
+        when 4
+            backup_base()
+        end
+        if answer >= 1 && answer < 4 && $auto_backup == true
+            backup_base()
+        end
     end
     puts ""
 end
