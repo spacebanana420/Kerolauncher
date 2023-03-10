@@ -10,9 +10,9 @@ require "zlib"
 #The use of Lutris is only available to operative systems supported by the application, such as Linux
 #Non-Windows systems require Wine to be installed in order to launch Windows executables
 
-$games = []
+$games = ["Yuzu"]
 #Add the names for your programs here, like lutris_games
-$game_paths = []
+$game_paths = ["/home/space/Applications/yuzu.AppImage"]
 #The path(s) to the games' executables, same order as above
 
 $wine_games = []
@@ -20,12 +20,12 @@ $wine_games = []
 $wine_game_paths = []
 #Add the paths for the said programs above
 
-$lutris_games = []
+$lutris_games = ["Touhou 7", "Touhou 10", "Touhou 11", "Touhou 12", "Touhou 15", "Touhou 16", "Touhou 18"]
 #Add the names for Lutris entries here to be displayed
-$lutris_games_id = []
+$lutris_games_id = [13, 21, 22, 37, 4, 36, 1]
 #The Lutris entry ID for the same programs above at the same order
 
-$backup_paths = []
+$backup_paths = ["/home/space/Imagens/Portraits"]
 #The path to the folders or files that you want to back up
 
 $backup_destination = ""
@@ -38,11 +38,8 @@ $auto_backup = false
 $compressed_format = ".tohoss"
 #The file extension for compressed screenshots, make sure it's a unique extension
 
-$start_command = ""
+$global_command = ""
 #Optional custom command that is executed everytime you launch a game
-
-$close_command = ""
-#Optional custom command that is executed after you close the game
 
 $ascii_art ="          ''''''''''          ''''''''''
       ''''##########''      ''##########''''
@@ -145,28 +142,28 @@ else
     $platform = 1 #Non Windows: Linux, MacOS, BSD, Solaris, etc
 end
 
-def deflate_file(filename) #Compress file with deflate
-    newfilename = filename + $compressed_format
-    if filename.include?(".bmp") == true && filename.include?($compressed_format) == false
-        input_file = File::read(filename)
-        output_file = Zlib::Deflate.deflate(input_file, 5)
-        File::write(newfilename, output_file)
-        File::rename(newfilename, "screenshots_backup/#{newfilename}")
-        return newfilename
-    elsif filename.include?(".png") == true
-        File::rename(filename, "screenshots_backup/#{filename}")
-        return filename
-    end
-end
-
-def inflate_file(filename) #Decompress file with deflate
-    if filename.include?($compressed_format) == true
-        filename_noext = filename.sub!($compressed_format, "")
-        input_file = File::read(filename)
-        output_file = Zlib::Inflate.inflate(input_file)
-        File::write(filename_noext, output_file)
-    end
-end
+# def deflate_file(filename) #Compress file with deflate
+#     newfilename = filename + $compressed_format
+#     if filename.include?(".bmp") == true && filename.include?($compressed_format) == false
+#         input_file = File::read(filename)
+#         output_file = Zlib::Deflate.deflate(input_file, 5)
+#         File::write(newfilename, output_file)
+#         File::rename(newfilename, "screenshots_backup/#{newfilename}")
+#         return newfilename
+#     elsif filename.include?(".png") == true
+#         File::rename(filename, "screenshots_backup/#{filename}")
+#         return filename
+#     end
+# end
+#
+# def inflate_file(filename) #Decompress file with deflate
+#     if filename.include?($compressed_format) == true
+#         filename_noext = filename.sub!($compressed_format, "")
+#         input_file = File::read(filename)
+#         output_file = Zlib::Inflate.inflate(input_file)
+#         File::write(filename_noext, output_file)
+#     end
+# end
 
 def read_answer(options, printstring, errormessage, numrange) #Print options in 1 string and read user input
     puts options
@@ -246,17 +243,14 @@ def play_game(usewine) #Play games, and with or without wine
     if gamechoice == false
         return
     end
-    if $start_command != ""
-        system($start_command)
+    if $global_command != ""
+        system($global_command)
     end
     puts "Launching #{$games[gamechoice]}..."
     if usewine == true
         system("wine '#{$game_paths[gamechoice]}'")
     else
         system("'#{$game_paths[gamechoice]}'")
-    end
-    if $close_command != ""
-        system($close_command)
     end
 end
 
@@ -270,15 +264,12 @@ def play_lutris() #Play games with Lutris, only for supported systems
     if gamechoice == false
         return
     end
-    if $start_command != ""
-        system($start_command)
+    if $global_command != ""
+        system($global_command)
     end
     puts "Launching #{$lutris_games[gamechoice]} (Lutris)..."
     system("lutris rungameid/#{$lutris_games_id[gamechoice]}")
-
-    if $close_command != ""
-        system($close_command)
-    end
+    return
 end
 
 def backup_base()
@@ -352,44 +343,26 @@ puts ""; #puts "Kerolauncher version 0.1";
 puts title; puts ""
 
 while true
-    if $platform == 0 #For Windows
-        options = ["0. Exit", "1. Play", "2. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
-        if answer == false
-            return
-        end
-        case answer
-        when 0
-            return
-        when 1
-            play_game(false)
-        when 2
-            backup_base()
-        end
-        if answer == 1 && $auto_backup == true
-            backup_base()
-        end
-    else # For every other operative system
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
-        if answer == false
-            return
-        end
-        case answer
-        when 0
-            return
-        when 1
-            play_game(false)
-        when 2
-            play_game(true)
-        when 3
-            play_lutris()
-        when 4
-            backup_base()
-        end
-        if answer >= 1 && answer < 4 && $auto_backup == true
-            backup_base()
-        end
+    options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
+    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+    if answer == false
+        return
+    end
+    case answer
+    when 0
+        return
+    when 1
+        play_game(false)
+    when 2
+        play_game(true)
+    when 3
+        play_lutris()
+    when 4
+        backup_base()
+    end
+
+    if answer >= 1 && answer < 4 && $auto_backup == true
+        backup_base()
     end
     puts ""
 end
