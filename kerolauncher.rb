@@ -1,4 +1,5 @@
 require "zlib"
+
 #///////////////////////////////////
 #///////////Configuration///////////
 #///////////////////////////////////
@@ -141,8 +142,10 @@ $starting_path = Dir::pwd
 
 if "ABCDEFGHIJKLMNOPQRSTUVWXYZ".include?($starting_path.chars[0]) == true && $starting_path.chars[1] == ":"
     $platform = 0 #Windows
+    $uname = ""
 else
     $platform = 1 #Non Windows: Linux, MacOS, BSD, Solaris, etc
+    $uname = `uname -a`
 end
 
 # def deflate_file(filename) #Compress file with deflate
