@@ -398,7 +398,7 @@ while true
         end
     elsif $uname.include?("nixos") == true
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         if answer == false
             return
         end
