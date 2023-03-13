@@ -59,8 +59,8 @@ If this destination is not set or does not exist, it defaults to wherever the wo
 
 Can be set to ```true``` or ```false```
 
-## $global_command
-**A custom command to launch before starting a game**
+## $start_command and $close_command
+**A custom command to launch before and starting a game, respectively**
 
 *Example: ```sudo cpupower frequency-set -g performance```*
 
