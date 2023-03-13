@@ -263,6 +263,30 @@ def play_game(usewine) #Play games, and with or without wine
     end
 end
 
+def play_game_nixos(appimage)
+    if $games.length == 0
+        puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
+        puts "Add the path to the executable to the list, alongside the game's number"
+        return
+    end
+    gamechoice = read_answer_iterate($games, "Choose a game to play", "You need to choose one of the available games!")
+    if gamechoice == false
+        return
+    end
+    if $start_command != ""
+        system($start_command)
+    end
+    puts "Launching #{$games[gamechoice]}..."
+    if appimage == true
+        system("appimage-run '#{$game_paths[gamechoice]}'")
+    else
+        system("steam-run '#{$game_paths[gamechoice]}'")
+    end
+    if $close_command != ""
+        system($close_command)
+    end
+end
+
 def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
         puts "You did not add any Lutris entries yet! Open Kerolauncher's file to setup the configuration"
@@ -370,6 +394,31 @@ while true
             backup_base()
         end
         if answer == 1 && $auto_backup == true
+            backup_base()
+        end
+    elsif $uname.include?("nixos") == true
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+        if answer == false
+            return
+        end
+        case answer
+        when 0
+            return
+        when 1
+            play_game(false)
+        when 2
+            play_game(true)
+        when 3
+            play_game_nixos(false)
+        when 4
+            play_game_nixos(true)
+        when 5
+            play_lutris()
+        when 6
+            backup_base()
+        end
+        if answer >= 1 && answer < 6 && $auto_backup == true
             backup_base()
         end
     else # For every other operative system
