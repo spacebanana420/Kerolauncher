@@ -105,14 +105,12 @@ end
 def play_game(usewine) #Play games, and with or without wine
     if usewine == true
         if $wine_games.length == 0
-            puts "You did not add any Wine game entries yet! Open Kerolauncher's file to setup the configuration"
-            puts "Add the path to the executable to the list, alongside the game's number"
+            puts "You did not add any Wine game entries yet! Open config.rb to setup the configuration"
             return
         end
     else
         if $games.length == 0
-            puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
-            puts "Add the path to the executable to the list, alongside the game's number"
+            puts "You did not add any game entries yet! Open config.rb to setup the configuration"
             return
         end
     end
@@ -141,8 +139,7 @@ end
 
 def play_game_nixos(appimage)
     if $games.length == 0
-        puts "You did not add any game entries yet! Open Kerolauncher's file to setup the configuration"
-        puts "Add the path to the executable to the list, alongside the game's number"
+        puts "You did not add any game entries yet! Open config.rb to setup the configuration"
         return
     end
     gamechoice = read_answer_iterate($games, "Choose a game to play", "You need to choose one of the available games!")
@@ -165,7 +162,7 @@ end
 
 def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
-        puts "You did not add any Lutris entries yet! Open Kerolauncher's file to setup the configuration"
+        puts "You did not add any Lutris entries yet! Open config.rb to setup the configuration"
         puts "To find out what ID your entries use, type 'lutris -l' in the terminal"
         return
     end
@@ -186,9 +183,8 @@ end
 
 def play_emulator()
     if $emulated_games.length == 0
-        puts "You did not add any console game entries yet! Open Kerolauncher's file to setup the configuration"
-        puts "Add the path to the executable to the list, alongside the game's number"
-    return
+        puts "You did not add any console game entries yet! Open config.rb to setup the configuration"
+        return
     end
     gamechoice = read_answer_iterate($emulated_games, "Choose a game to play", "You need to choose one of the available games!")
     if gamechoice == false
