@@ -17,7 +17,7 @@ For NixOS, you also have support for steam-run and appimage-run
 # How to use
 Download kerolauncher.rb and (if you haven't yet) [install Ruby on your system](https://www.ruby-lang.org/en/) (Recommended >=3.1.0). Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
 
-If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, you also require wine to play and optionally Lutris.
+If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, you also require Wine to play and optionally Lutris.
 
 Open config.rb in the config folder and set up your games, this setup is required.
 
