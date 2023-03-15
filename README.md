@@ -61,6 +61,13 @@ The file extension will determine what console the game is from!
 
 Supported formats: ```.nds .cia .cci .3ds .wbfs .sfc```
 
+## $nds_command, $threeds_commands, $wii_command and $snes_command
+**The command to launch the emulators from the commandline, launching the game directly**
+
+If empty, the commands will default to what they originally are
+
+*Example: "melonds" or "/path/to/melonds" or "flatpak run net.kuribo64.melonDS"*
+
 ## $backup_paths
 **Add the path to a file or folder to backup**
 
