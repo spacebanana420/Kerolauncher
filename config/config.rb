@@ -44,10 +44,10 @@ $emulated_game_paths = []
 #Example: "melonds" or "/path/to/melonds" "flatpak run net.kuribo64.melonDS"
 #You can change this command to change the emulator or add arguments
 #If left empty, the commands will default to what they originally were
-$nds_command = "melonds"
-$3ds_command = "citra"
-$wii_command = "dolphin-emu"
-$snes_command = "snes9x"
+$nds_command = "melonds" #DS and DSi
+$threeds_command = "citra" #3DS and 2DS
+$wii_command = "dolphin-emu" #Wii
+$snes_command = "snes9x" #SNES
 
 
 

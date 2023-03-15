@@ -58,7 +58,7 @@ backup_thread = Thread::new do
     end
 end
 
-lutris_thread.join; games_thread.join; wine_thread.join; backup_thread.join
+games_thread.join; wine_thread.join; backup_thread.join
 
 if error_output.length != 0
     for error in error_output
@@ -179,7 +179,7 @@ def play_emulator()
         system("#{$nds_command} '#{$emulated_game_paths[gamechoice]}'")
 
     elsif $emulated_game_paths[gamechoice].include?(".cia") == true || $emulated_game_paths[gamechoice].include?(".cci") == true || $emulated_game_paths[gamechoice].include?(".3ds") == true
-        system("#{$3ds_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$threeds_command} '#{$emulated_game_paths[gamechoice]}'")
 
     elsif $emulated_game_paths[gamechoice].include?(".wbfs") == true
         system("#{$wii_command} '#{$emulated_game_paths[gamechoice]}'")
