@@ -7,10 +7,11 @@
 #Non-Windows systems require Wine to be installed in order to launch Windows executables
 
 $games = []
-#Add the names for your programs here, like lutris_games
+#Add the names for your native programs here
 
 $game_paths = []
 #The path(s) to the games' executables, same order as above
+#The programs in this list need to be native to your operative system
 
 
 $wine_games = []
@@ -40,7 +41,7 @@ $emulated_game_paths = []
 #The path to the roms of the respective games above
 
 #The commands for launching console games through the cli
-#Example: "melonds /path/to/rom.nds" or "flatpak run net.kuribo64.melonDS /path/to/rom.nds"
+#Example: "melonds" or "/path/to/melonds" "flatpak run net.kuribo64.melonDS"
 #You can change this command to change the emulator or add arguments
 #If left empty, the commands will default to what they originally were
 $nds_command = "melonds"
