@@ -224,9 +224,9 @@ if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 0.2//
+//Kerolauncher version 0.3//
 ////////////////////////////"
-puts ""; #puts "Kerolauncher version 0.2";
+puts "";
 puts title; puts ""
 
 while true
