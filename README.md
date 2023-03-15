@@ -44,6 +44,16 @@ In case of $wine_paths entries, the games will be executed with Wine, to add sup
 
 You can find out which ID each Lutris entry has by typing ```lutris -l``` on the terminal
 
+## $emulated_games
+**Add the names of your console games**
+
+## $emulated_game_paths
+**Add the path to the respective ROMs of your games**
+
+The file extension will determine what console the game is from!
+
+Supported formats: ```.nds .cia .cci .3ds .wbfs .sfc```
+
 ## $backup_paths
 **Add the path to a file or folder to backup**
 
