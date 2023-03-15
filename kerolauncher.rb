@@ -34,6 +34,19 @@ games_thread = Thread::new do
             break
         end
     end
+
+    if $nds_command == ""
+        $nds_command = "melonds"
+    end
+    if $threeds_command == ""
+        $threeds_command = "citra"
+    end
+    if $wii_command == ""
+        $wii_command = "dolphin-emu"
+    end
+    if $snes_command == ""
+        $snes_command = "snes9x"
+    end
 end
 
 
