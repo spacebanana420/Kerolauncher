@@ -227,7 +227,7 @@ while true
         if answer >= 1 && answer < 3 && $auto_backup == true
             backup_base()
         end
-    elsif $uname.include?("nixos") == true
+    elsif $uname.include?("nixos") == true #For specifically NixOS
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234567")
         if answer == false
