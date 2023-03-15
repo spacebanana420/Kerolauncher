@@ -19,7 +19,7 @@ Download kerolauncher.rb and (if you haven't yet) [install Ruby on your system](
 
 If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, you also require wine to play and optionally Lutris.
 
-Open kerolauncher.rb and change the configuration settings, this setup is required.
+Open config.rb in the config folder and set up your games, this setup is required.
 
 After everything is configured, you can execute the launcher from a terminal with ```ruby kerolauncher.rb```.
 
