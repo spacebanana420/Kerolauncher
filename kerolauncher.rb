@@ -12,12 +12,6 @@ require "./lib/generalfunctions.rb"
 # Quick config error checks for safety
 error_output = Array.new
 
-lutris_thread = Thread::new do
-    if $lutris_games.length != $lutris_games_id.length
-        error_output += "Configuration error! Lutris games or Lutris game IDs are misconfigured!\n\n"
-    end
-end
-
 games_thread = Thread::new do
     if $games.length != $game_paths.length
         error_output.push("Configuration error! Game names and paths are misconfigured!")
@@ -32,6 +26,10 @@ end
 
 
 wine_thread = Thread::new do
+    if $lutris_games.length != $lutris_games_id.length
+        error_output.push("Configuration error! Lutris games or Lutris game IDs are misconfigured!")
+    end
+
     if $wine_games.length != $wine_game_paths.length
         error_output.push("Configuration error! Wine game names and paths are misconfigured!")
     end
@@ -63,7 +61,7 @@ lutris_thread.join; games_thread.join; wine_thread.join; backup_thread.join
 
 if error_output.length != 0
     for error in error_output
-        puts error
+        puts error; puts ""
     end
     return
 end
