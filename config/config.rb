@@ -3,23 +3,52 @@
 #Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
 #Each entry can be separated between lines, as long as they are inside the brackets and a comma separates them
 
-#The use of Lutris is only available to operative systems supported by the application, such as Linux
+#The use of Lutris is only available to operative systems supported by the program, such as Linux
 #Non-Windows systems require Wine to be installed in order to launch Windows executables
 
 $games = []
 #Add the names for your programs here, like lutris_games
+
 $game_paths = []
 #The path(s) to the games' executables, same order as above
 
+
 $wine_games = []
 #Add the names for your programs that you want to execute with Wine
+
 $wine_game_paths = []
 #Add the paths for the said programs above
 
+
 $lutris_games = []
 #Add the names for Lutris entries here to be displayed
+
 $lutris_games_id = []
 #The Lutris entry ID for the same programs above at the same order
+
+
+$emulated_games = []
+#Add the name of the games
+#File extension determines the console!
+#Supported formats:
+    #.nds
+    #.cia, .cci, .3ds
+    #.wbfs
+    #.sfc
+
+$emulated_game_paths = []
+#The path to the roms of the respective games above
+
+#The commands for launching console games through the cli
+#Example: "melonds /path/to/rom.nds" or "flatpak run net.kuribo64.melonDS /path/to/rom.nds"
+#You can change this command to change the emulator or add arguments
+#If left empty, the commands will default to what they originally were
+$nds_command = "melonds"
+$3ds_command = "citra"
+$wii_command = "dolphin-emu"
+$snes_command = "snes9x"
+
+
 
 $backup_paths = []
 #The path to the folders or files that you want to back up
@@ -31,8 +60,7 @@ $backup_destination = ""
 $auto_backup = false
 #If set to true, everytime you close a game the launcher starts the backup process
 
-$compressed_format = ".tohoss"
-#The file extension for compressed screenshots, make sure it's a unique extension
+#$compressed_format = ".tohoss"
 
 $start_command = ""
 #Optional custom command that is executed everytime you launch a game
