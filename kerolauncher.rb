@@ -23,6 +23,17 @@ games_thread = Thread::new do
             break
         end
     end
+
+    if $emulated_games.length != $emulated_game_paths.length
+        error_output.push("Configuration error! Emulated game names and paths are misconfigured!")
+    end
+
+    for i in $emulated_game_paths
+        if File::file?(i) == false
+            error_output.push("Configuration error! Check if your emulated game paths lead to a file")
+            break
+        end
+    end
 end
 
 
