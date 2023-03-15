@@ -11,6 +11,8 @@ You can play native games or use Wine, Lutris or even emulators!
 
 Wine is exclusive to non-Windows systems and Lutris is exclusive to Linux and other systems that support it, every other feature is system-agnostic
 
+For NixOS, you also have support for steam-run and appimage-run
+
 
 # How to use
 Download kerolauncher.rb and (if you haven't yet) [install Ruby on your system](https://www.ruby-lang.org/en/) (Recommended >=3.1.0). Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
