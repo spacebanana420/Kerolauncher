@@ -213,7 +213,7 @@ if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 0.3//
+//Kerolauncher version 1.0//
 ////////////////////////////"
 puts "";
 puts title; puts ""
