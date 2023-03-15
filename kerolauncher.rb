@@ -160,6 +160,44 @@ def play_lutris() #Play games with Lutris, only for supported systems
     end
 end
 
+def play_emulator()
+    if $emulated_games.length == 0
+        puts "You did not add any console game entries yet! Open Kerolauncher's file to setup the configuration"
+        puts "Add the path to the executable to the list, alongside the game's number"
+    return
+    end
+    gamechoice = read_answer_iterate($emulated_games, "Choose a game to play", "You need to choose one of the available games!")
+    if gamechoice == false
+        return
+    end
+    if $start_command != ""
+        system($start_command)
+    end
+
+    puts "Launching #{$emulated_games[gamechoice]}..."
+    if $emulated_game_paths[gamechoice].include?(".nds") == true
+        system("#{$nds_command} '#{$emulated_game_paths[gamechoice]}'")
+
+    elsif $emulated_game_paths[gamechoice].include?(".cia") == true || $emulated_game_paths[gamechoice].include?(".cci") == true || $emulated_game_paths[gamechoice].include?(".3ds") == true
+        system("#{$3ds_command} '#{$emulated_game_paths[gamechoice]}'")
+
+    elsif $emulated_game_paths[gamechoice].include?(".wbfs") == true
+        system("#{$wii_command} '#{$emulated_game_paths[gamechoice]}'")
+
+    elsif $emulated_game_paths[gamechoice].include?(".sfc") == true
+        system("#{$snes_command} '#{$emulated_game_paths[gamechoice]}'")
+
+    else
+        puts "Error! ROM type is unknown!"
+        puts "Check the ROM's file extension"
+        return
+    end
+    if $close_command != ""
+        system($close_command)
+    end
+end
+
+
 if $ascii_art != ""
     puts $ascii_art
 end
@@ -171,8 +209,8 @@ puts title; puts ""
 
 while true
     if $platform == 0 #For Windows
-        options = ["0. Exit", "1. Play", "2. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
+        options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
         if answer == false
             return
         end
@@ -182,14 +220,16 @@ while true
         when 1
             play_game(false)
         when 2
+            play_emulator()
+        when 3
             backup_base()
         end
-        if answer == 1 && $auto_backup == true
+        if answer >= 1 && answer < 3 && $auto_backup == true
             backup_base()
         end
     elsif $uname.include?("nixos") == true
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234567")
         if answer == false
             return
         end
@@ -207,14 +247,16 @@ while true
         when 5
             play_lutris()
         when 6
+            play_emulator()
+        when 7
             backup_base()
         end
-        if answer >= 1 && answer < 6 && $auto_backup == true
+        if answer >= 1 && answer < 7 && $auto_backup == true
             backup_base()
         end
     else # For every other operative system
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
         if answer == false
             return
         end
@@ -228,9 +270,11 @@ while true
         when 3
             play_lutris()
         when 4
+            play_emulator()
+        when 5
             backup_base()
         end
-        if answer >= 1 && answer < 4 && $auto_backup == true
+        if answer >= 1 && answer < 5 && $auto_backup == true
             backup_base()
         end
     end
