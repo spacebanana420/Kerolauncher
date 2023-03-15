@@ -29,16 +29,16 @@ $lutris_games_id = []
 
 
 $emulated_games = []
-#Add the name of the games
+#Add the name of your console games
+
+$emulated_game_paths = []
+#The path to the roms of the respective games above
 #File extension determines the console!
 #Supported formats:
     #.nds
     #.cia, .cci, .3ds
     #.wbfs
     #.sfc
-
-$emulated_game_paths = []
-#The path to the roms of the respective games above
 
 #The commands for launching console games through the cli
 #Example: "melonds" or "/path/to/melonds" "flatpak run net.kuribo64.melonDS"
