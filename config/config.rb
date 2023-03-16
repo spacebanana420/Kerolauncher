@@ -38,6 +38,7 @@ $emulated_game_paths = []
     #.nds
     #.cia, .cci, .3ds
     #.wbfs
+    #.gba
     #.sfc
 
 #The commands for launching console games through the cli
@@ -47,6 +48,7 @@ $emulated_game_paths = []
 $nds_command = "melonds" #DS and DSi
 $threeds_command = "citra" #3DS and 2DS
 $wii_command = "dolphin-emu" #Wii
+$gba_command = "mgba" #GBA
 $snes_command = "snes9x" #SNES
 
 

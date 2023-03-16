@@ -44,6 +44,9 @@ games_thread = Thread::new do
     if $wii_command == ""
         $wii_command = "dolphin-emu"
     end
+    if $gba_command == ""
+        $gba_command = "mgba"
+    end
     if $snes_command == ""
         $snes_command = "snes9x"
     end
@@ -203,6 +206,9 @@ def play_emulator()
 
     elsif $emulated_game_paths[gamechoice].include?(".wbfs") == true
         system("#{$wii_command} '#{$emulated_game_paths[gamechoice]}'")
+
+    elsif $emulated_game_paths[gamechoice].include?(".gba") == true
+        system("#{$gba_command} '#{$emulated_game_paths[gamechoice]}'")
 
     elsif $emulated_game_paths[gamechoice].include?(".sfc") == true
         system("#{$snes_command} '#{$emulated_game_paths[gamechoice]}'")
