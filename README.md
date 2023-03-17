@@ -3,7 +3,7 @@ Kerolauncher is a cross-platform CLI launcher for launching games and general pr
 
 You can play native games or use Wine, Lutris and even emulators!
 
-### Current supported emulated consoles:
+### Current support for emulation of:
 * DS/DSi
 * 3DS/2DS
 * Wii
