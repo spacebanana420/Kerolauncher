@@ -213,9 +213,11 @@ def play_emulator()
     elsif $emulated_game_paths[gamechoice].include?(".sfc") == true
         system("#{$snes_command} '#{$emulated_game_paths[gamechoice]}'")
 
+    elsif $custom_emu_command != ""
+        system("#{$custom_emu_command} '#{$emulated_game_paths[gamechoice]}'")
     else
         puts "Error! ROM type is unknown!"
-        puts "Check the ROM's file extension"
+        puts "To launch unknown ROM files, you need to set up $custom_emu_command in config.rb"
         return
     end
     if $close_command != ""
@@ -228,7 +230,7 @@ if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 1.0//
+//Kerolauncher version 1.1//
 ////////////////////////////"
 puts "";
 puts title; puts ""

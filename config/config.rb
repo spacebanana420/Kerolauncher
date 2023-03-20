@@ -33,7 +33,7 @@ $emulated_games = []
 
 $emulated_game_paths = []
 #The path to the roms of the respective games above
-#File extension determines the console!
+#File extension determines the console! If the ROM file is not "supported", it will be attempted to be launched with $custom_emu_command
 #Supported formats:
     #.nds
     #.cia, .cci, .3ds
@@ -51,6 +51,8 @@ $wii_command = "dolphin-emu" #Wii
 $gba_command = "mgba" #GBA
 $snes_command = "snes9x" #SNES
 
+$custom_emu_command = "" #Custom command to launch the file with
+#You can use this to add console emulation that isn't supported out of the box
 
 
 $backup_paths = []
