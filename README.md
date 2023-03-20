@@ -8,6 +8,8 @@ You can play native games or use Wine, Lutris and even emulators!
 * 3DS/2DS
 * Wii
 * SNES
+* GBA (coming v1.1)
+* Custom system (coming v1.1)
 
 Wine is exclusive to non-Windows systems and Lutris is exclusive to Linux and other systems that support it, every other feature is system-agnostic
 
