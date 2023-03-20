@@ -75,3 +75,17 @@ def execute_silent(command)
         return system("#{command} >> /dev/null")
     end
 end
+
+def get_file_extension(filename)
+    extension = ""
+    addchar = false
+    for char in filename.chars
+        if char == "."
+            addchar == true
+        end
+        if addchar == true
+            extension += char
+        end
+    end
+    return extenion
+end
