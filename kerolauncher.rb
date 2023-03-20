@@ -19,7 +19,7 @@ games_thread = Thread::new do
     end
     for i in $game_paths
         if File::file?(i) == false
-            error_output.push("Configuration error! Check if your game paths lead to a file")
+            error_output.push("Configuration error! Check if your game paths lead to a file and not a directory")
             break
         end
     end
@@ -30,7 +30,7 @@ games_thread = Thread::new do
 
     for i in $emulated_game_paths
         if File::file?(i) == false
-            error_output.push("Configuration error! Check if your emulated game paths lead to a file")
+            error_output.push("Configuration error! Check if your emulated game paths lead to a file and not a directory")
             break
         end
     end
