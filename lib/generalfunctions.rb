@@ -80,8 +80,10 @@ def get_file_extension(filename)
     extension = ""
     addchar = false
     for char in filename.chars
-        if char == "."
+        if char == "." && addchar == false
             addchar == true
+        elsif char == "." && addchar == true
+            extenion = ""
         end
         if addchar == true
             extension += char
