@@ -140,7 +140,7 @@ def play_game(usewine) #Play games, and with or without wine
     end
 end
 
-def play_game_nixos(appimage)
+def play_game_nixos(appimage) #Exclusive options for NixOS, to use steam-run and appimage-run
     if $games.length == 0
         puts "You did not add any game entries yet! Open config.rb to setup the configuration"
         return
@@ -184,7 +184,7 @@ def play_lutris() #Play games with Lutris, only for supported systems
     end
 end
 
-def play_emulator()
+def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
     if $emulated_games.length == 0
         puts "You did not add any console game entries yet! Open config.rb to setup the configuration"
         return
