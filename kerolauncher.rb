@@ -226,6 +226,27 @@ def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
 end
 
 
+def play_command() #Play games, and with or without wine
+    if $command_programs.length == 0
+        puts "You did not add any game entries yet! Open config.rb to setup the configuration"
+        return
+    end
+
+    gamechoice = read_answer_iterate($command_programs, "Choose a command", "You need to choose one of the available commands!")
+    if gamechoice == false
+        return
+    end
+    if $start_command != ""
+        system($start_command)
+    end
+    puts "Launching..."
+    system("'#{$command_programs[gamechoice]}'")
+    if $close_command != ""
+        system($close_command)
+    end
+end
+
+
 if $ascii_art != ""
     puts $ascii_art
 end
@@ -237,7 +258,7 @@ puts title; puts ""
 
 while true
     if $platform == 0 #For Windows
-        options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Backup data"]
+        options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Launch command", "4. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
         if answer == false
             return
@@ -250,13 +271,15 @@ while true
         when 2
             play_emulator()
         when 3
+            play_command()
+        when 4
             backup_base()
         end
-        if answer >= 1 && answer < 3 && $auto_backup == true
+        if answer >= 1 && answer < 4 && $auto_backup == true
             backup_base()
         end
     elsif $uname.include?("nixos") == true #For specifically NixOS
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Backup data"]
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Launch command", "8. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234567")
         if answer == false
             return
@@ -277,13 +300,15 @@ while true
         when 6
             play_emulator()
         when 7
+            play_command()
+        when 8
             backup_base()
         end
-        if answer >= 1 && answer < 7 && $auto_backup == true
+        if answer >= 1 && answer < 8 && $auto_backup == true
             backup_base()
         end
     else # For every other operative system
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Backup data"]
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Launch command", "6. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
         if answer == false
             return
@@ -300,9 +325,11 @@ while true
         when 4
             play_emulator()
         when 5
+           play_command()
+        when 6
             backup_base()
         end
-        if answer >= 1 && answer < 5 && $auto_backup == true
+        if answer >= 1 && answer < 6 && $auto_backup == true
             backup_base()
         end
     end

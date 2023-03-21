@@ -28,6 +28,10 @@ $lutris_games_id = []
 #The Lutris entry ID for the same programs above at the same order
 
 
+$command_programs = []
+#List of your commands that can be executed
+
+
 $emulated_games = []
 #Add the name of your console games
 
@@ -53,6 +57,9 @@ $snes_command = "snes9x" #SNES
 
 $custom_emu_command = "" #Custom command to launch the file with
 #You can use this to add console emulation that isn't supported out of the box
+
+
+
 
 
 $backup_paths = []
