@@ -27,7 +27,8 @@ $lutris_games = []
 $lutris_games_id = []
 #The Lutris entry ID for the same programs above at the same order
 
-
+$command_names = []
+#The names of the commands to display
 $command_programs = []
 #List of your commands that can be executed
 

@@ -15,7 +15,7 @@ error_output = Array.new
 
 games_thread = Thread::new do
     if $games.length != $game_paths.length
-        error_output.push("Configuration error! Game names and paths are misconfigured!")
+        error_output.push("Configuration error! The number of game paths and their names is not the same!")
     end
     for i in $game_paths
         if File::file?(i) == false
@@ -25,7 +25,7 @@ games_thread = Thread::new do
     end
 
     if $emulated_games.length != $emulated_game_paths.length
-        error_output.push("Configuration error! Emulated game names and paths are misconfigured!")
+        error_output.push("Configuration error! The number of game ROMs and their names is not the same!")
     end
 
     for i in $emulated_game_paths
@@ -33,6 +33,10 @@ games_thread = Thread::new do
             error_output.push("Configuration error! Check if your emulated game paths lead to a file and not a directory")
             break
         end
+    end
+
+    if $command_names.length != $command_programs.length
+        error_output.push("Configuration error! The number of commands and their display names is not the same!")
     end
 
     if $nds_command == ""
@@ -55,11 +59,11 @@ end
 
 wine_thread = Thread::new do
     if $lutris_games.length != $lutris_games_id.length
-        error_output.push("Configuration error! Lutris games or Lutris game IDs are misconfigured!")
+        error_output.push("Configuration error! The number of Lutris IDs and their names is not the same!")
     end
 
     if $wine_games.length != $wine_game_paths.length
-        error_output.push("Configuration error! Wine game names and paths are misconfigured!")
+        error_output.push"Configuration error! The number of wine game paths and their names is not the same!")
     end
 
     for i in $wine_game_paths
@@ -232,14 +236,14 @@ def play_command() #Play games, and with or without wine
         return
     end
 
-    gamechoice = read_answer_iterate($command_programs, "Choose a command", "You need to choose one of the available commands!")
+    gamechoice = read_answer_iterate($command_names, "Choose a command", "You need to choose one of the available commands!")
     if gamechoice == false
         return
     end
     if $start_command != ""
         system($start_command)
     end
-    puts "Launching..."
+    puts "Launching #{$command_names[gamechoice]}..."
     system("'#{$command_programs[gamechoice]}'")
     if $close_command != ""
         system($close_command)
