@@ -63,7 +63,7 @@ wine_thread = Thread::new do
     end
 
     if $wine_games.length != $wine_game_paths.length
-        error_output.push"Configuration error! The number of wine game paths and their names is not the same!")
+        error_output.push("Configuration error! The number of wine game paths and their names is not the same!")
     end
 
     for i in $wine_game_paths
