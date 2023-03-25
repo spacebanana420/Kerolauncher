@@ -259,15 +259,18 @@ title = "////////////////////////////
 ////////////////////////////"
 puts "";
 puts title; puts ""
-def print_options(options, startplay, endplay)
-    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!","0123")
-    if answer == false
-        return
-    end
-    case answer
-    when 0
-    end
-end
+
+# def print_options(options, startplay, endplay) #test first!
+#     option_numbers = ""
+#     for i in 0..options.length-1
+#         option_numbers += i.to_s
+#     end
+#     answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", option_numbers)
+#     if answer == false
+#         return
+#     end
+# end
+
 while true
     if $platform == 0 #For Windows
         options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Launch command", "4. Backup data"]
