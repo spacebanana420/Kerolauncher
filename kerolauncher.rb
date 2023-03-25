@@ -259,11 +259,19 @@ title = "////////////////////////////
 ////////////////////////////"
 puts "";
 puts title; puts ""
-
+def print_options(options, startplay, endplay)
+    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!","0123")
+    if answer == false
+        return
+    end
+    case answer
+    when 0
+    end
+end
 while true
     if $platform == 0 #For Windows
         options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Launch command", "4. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
         if answer == false
             return
         end
@@ -284,7 +292,7 @@ while true
         end
     elsif $uname.include?("nixos") == true #For specifically NixOS
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Launch command", "8. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234567")
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345678")
         if answer == false
             return
         end
@@ -313,7 +321,7 @@ while true
         end
     else # For every other operative system
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Launch command", "6. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         if answer == false
             return
         end
