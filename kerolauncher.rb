@@ -274,79 +274,46 @@ puts title; puts ""
 while true
     if $platform == 0 #For Windows
         options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Launch command", "4. Backup data"]
+        operations = [0, 1, 4, 5, 8]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
-        if answer == false
-            return
-        end
-        case answer
-        when 0
-            return
-        when 1
-            play_game(false)
-        when 2
-            play_emulator()
-        when 3
-            play_command()
-        when 4
-            backup_base()
-        end
-        if answer >= 1 && answer < 4 && $auto_backup == true
-            backup_base()
-        end
+        min = 1; max = 4
+
     elsif $uname.include?("nixos") == true #For specifically NixOS
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Launch command", "8. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345678")
-        if answer == false
-            return
-        end
-        case answer
-        when 0
-            return
-        when 1
-            play_game(false)
-        when 2
-            play_game(true)
-        when 3
-            play_game_nixos(false)
-        when 4
-            play_game_nixos(true)
-        when 5
-            play_lutris()
-        when 6
-            play_emulator()
-        when 7
-            play_command()
-        when 8
-            backup_base()
-        end
-        if answer >= 1 && answer < 8 && $auto_backup == true
-            backup_base()
-        end
+        min = 1; max = 8
+        operations = [0, 1, 2, 6, 7, 3, 4, 5, 8]
+
     else # For every other operative system
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Launch command", "6. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
-        if answer == false
-            return
-        end
-        case answer
-        when 0
-            return
-        when 1
-            play_game(false)
-        when 2
-            play_game(true)
-        when 3
-            play_lutris()
-        when 4
-            play_emulator()
-        when 5
-           play_command()
-        when 6
-            backup_base()
-        end
-        if answer >= 1 && answer < 6 && $auto_backup == true
-            backup_base()
-        end
+        min = 1; max = 6
+        operations = [0, 1, 2, 3, 4, 5, 8]
+    end
+
+    if answer == false
+        return
+    end
+    case operations[answer]
+    when 1
+        play_game(false)
+    when 2
+        play_game(true)
+    when 3
+        play_lutris()
+    when 4
+        play_emulator()
+    when 5
+        play_command()
+    when 6
+        play_game_nixos(false)
+    when 7
+        play_game_nixos(true)
+    when 8
+        backup_base()
+    end
+    if answer >= min && answer < max && $auto_backup == true
+        backup_base()
     end
     puts ""
 end
