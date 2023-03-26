@@ -8,7 +8,7 @@ require "./lib/errorchecks.rb"
 # Checks for errors to avoid launching the program unsafely
 if errorcheck_config() == false
     return
-elsif   errorcheck() == false
+elsif errorcheck() == false
     return
 end
 
