@@ -307,7 +307,7 @@ while true
         operations = [0, 1, 2, 3, 4, 5, 8]
     end
 
-    if answer == false
+    if answer == false || answer == 0
         return
     end
     case operations[answer]
