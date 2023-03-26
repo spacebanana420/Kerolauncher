@@ -13,6 +13,36 @@ require "./lib/backup.rb"
 # Quick config error checks for safety
 error_output = Array.new
 
+config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$ascii_art"]
+
+config_file = File::read("config/config.rb")
+config_file_nocomments = ""
+copychar = true
+for char in config_file.chars
+    if char == "#"
+        copychar = false
+    elsif char == "\n"
+        copychar = true
+    end
+
+    if copychar == true
+        config_file_nocomments += char
+    end
+end
+
+for option in config_options
+    if config_file_nocomments.include?(option) == false
+        error_output.push("Config.rb has missing settings! In particular, #{option}")
+    end
+end
+
+if error_output.length != 0
+    for error in error_output
+        puts error; puts ""
+    end
+    return
+end
+
 games_thread = Thread::new do
     if $games.length != $game_paths.length
         error_output.push("Configuration error! The number of game paths and their names is not the same!")
@@ -89,19 +119,7 @@ backup_thread = Thread::new do
     end
 end
 
-
-config_thread = Thread::new do
-    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$ascii_art"]
-
-    config_file = File::read("config/config.rb")
-    for option in config_options
-        if config_file.include?(option) == false
-            error_output.push("Config.rb has missing settings! In particular, #{option}")
-        end
-    end
-end
-
-games_thread.join; wine_thread.join; backup_thread.join; config_thread.join
+games_thread.join; wine_thread.join; backup_thread.join
 
 if error_output.length != 0
     for error in error_output
