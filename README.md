@@ -1,5 +1,7 @@
 # Kerolauncher
-Kerolauncher is a cross-platform CLI launcher for launching games and general programs. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, and more. Kerolauncher works on nearly all operative systems, as long as they support the Ruby interpreter, but there are some features that are exclusive to some systems like Linux.
+Kerolauncher is a cross-platform CLI launcher for launching games and general programs. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, and more.
+
+Kerolauncher works on nearly all operative systems, as long as they support the Ruby interpreter, but there are some features that are exclusive to some systems like Linux.
 
 You can play native games or use Wine, Lutris and even emulators!
 
