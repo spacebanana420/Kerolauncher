@@ -93,14 +93,10 @@ end
 config_thread = Thread::new do
     config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$ascii_art"]
 
-    if File::file?("config/config.rb") == false
-        error_output.push("Config file is missing! Make sure you have config.rb in the config folder!")
-    else
-        config_file = File::read("config/config.rb")
-        for option in config_options
-            if config_file.include?(option) == false
-                error_output.push("Config.rb has missing settings! In particular, #{option}")
-            end
+    config_file = File::read("config/config.rb")
+    for option in config_options
+        if config_file.include?(option) == false
+            error_output.push("Config.rb has missing settings! In particular, #{option}")
         end
     end
 end
