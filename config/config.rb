@@ -47,7 +47,7 @@ $emulated_game_paths = []
     #.sfc
 
 #The commands for launching console games through the cli
-#Example: "melonds" or "/path/to/melonds" "flatpak run net.kuribo64.melonDS"
+#Example: "melonds" or "/path/to/melonds" or "flatpak run net.kuribo64.melonDS"
 #You can change this command to change the emulator or add arguments
 #If left empty, the commands will default to what they originally were
 $nds_command = "melonds" #DS and DSi
@@ -62,7 +62,6 @@ $custom_emu_command = "" #Custom command to launch the file with
 
 
 
-
 $backup_paths = []
 #The path to the folders or files that you want to back up
 
@@ -73,7 +72,6 @@ $backup_destination = ""
 $auto_backup = false
 #If set to true, everytime you close a game the launcher starts the backup process
 
-#$compressed_format = ".tohoss"
 
 $start_command = ""
 #Optional custom command that is executed everytime you launch a game
