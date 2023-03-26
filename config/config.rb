@@ -1,5 +1,5 @@
-#This is the entire configuration of the program. Manual setup is required from here.
-#All text settings need to be between quotation marks, and multiple text strings (inside []) need to be separated by commas
+#This is the entire configuration of the program. Manual setup is required from here for setting up the games.
+#All text settings that support multiple entries need to be between quotation marks, and multiple text strings (inside []) need to be separated by commas
 #Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
 #Each entry can be separated between lines, as long as they are inside the brackets and a comma separates them
 
