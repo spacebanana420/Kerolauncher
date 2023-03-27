@@ -10,10 +10,10 @@ You can play native games or use Wine, Lutris and even emulators!
 * 3DS/2DS
 * Wii
 * SNES
-* GBA (coming v1.1)
-* Custom system (coming v1.1)
+* GBA
+* Custom system
 
-Wine is exclusive to non-Windows systems and Lutris is exclusive to Linux and other systems that support it, every other feature is system-agnostic
+Wine is exclusive to non-Windows systems and Lutris is exclusive to Linux, every other feature is system-agnostic
 
 For NixOS, you also have support for steam-run and appimage-run
 
@@ -55,6 +55,12 @@ In case of $wine_paths entries, the games will be executed with Wine, to add sup
 
 You can find out which ID each Lutris entry has by typing ```lutris -l``` on the terminal
 
+## $command_names
+**The names for command entries**
+
+## $command_programs
+**The respective commands that will be executed for each entry**
+
 ## $emulated_games
 **Add the names of your console games**
 
@@ -65,12 +71,15 @@ The file extension will determine what console the game is from!
 
 Supported formats: ```.nds .cia .cci .3ds .wbfs .sfc```
 
-## $nds_command, $threeds_commands, $wii_command and $snes_command
+## $nds_command, $threeds_commands, $wii_command, $gba_command and $snes_command
 **The command to launch the emulators from the commandline, launching the game directly**
 
 If empty, the commands will default to what they originally are
 
 *Example: "melonds" or "/path/to/melonds" or "flatpak run net.kuribo64.melonDS"*
+
+## $custom_emu_command
+**The command to launch an emulator of your choice when the ROM format is unknown**
 
 ## $backup_paths
 **Add the path to a file or folder to backup**
