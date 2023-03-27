@@ -158,7 +158,7 @@ def play_command() #Play games, and with or without wine
         system($start_command)
     end
     puts "Launching #{$command_names[gamechoice]}..."
-    system("'#{$command_programs[gamechoice]}'")
+    system("#{$command_programs[gamechoice]}")
     if $close_command != ""
         system($close_command)
     end
@@ -198,11 +198,17 @@ while true
         min = 1; max = 8
         operations = [0, 1, 2, 6, 7, 3, 4, 5, 8]
 
-    else # For every other operative system
+    elsif $uname.include?("linux") == true || $uname.include?("Linux") == true #For Linux that isn't NixOS
         options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Launch command", "6. Backup data"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         min = 1; max = 6
         operations = [0, 1, 2, 3, 4, 5, 8]
+
+    else # For every other operative system
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (emulated)", "4. Launch command", "5. Backup data"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
+        min = 1; max = 5
+        operations = [0, 1, 2, 4, 5, 8]
     end
 
     if answer == false || answer == 0
