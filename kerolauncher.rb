@@ -164,12 +164,26 @@ def play_command() #Play games, and with or without wine
     end
 end
 
+def quick_launch()
+    paths = Dir::children(".")
+    files = Array::new
+    iter = 1
+    for path in paths
+        if File::file?(path) == true
+            puts "#{iter}: #{path}"
+            files.push(path)
+            iter += 1
+        end
+    end
+    file_choice = read_answer("", "Choose a file to launch" "", "1")
+end
+
 
 if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 1.1//
+//Kerolauncher version 1.2//
 ////////////////////////////"
 puts "";
 puts title; puts ""
@@ -185,35 +199,28 @@ puts title; puts ""
 #     end
 # end
 
-while true
+def play_menu()
     if $platform == 0 #For Windows
-        options = ["0. Exit", "1. Play", "2. Play (emulated)", "3. Launch command", "4. Backup data"]
-        operations = [0, 1, 4, 5, 8]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
-        min = 1; max = 4
+        options = ["0. Exit", "1. Play (native)", "2. Play (emulated)"]
+        operations = [0, 1, 4]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
 
     elsif $uname.include?("nixos") == true #For specifically NixOS
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)", "7. Launch command", "8. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345678")
-        min = 1; max = 8
-        operations = [0, 1, 2, 6, 7, 3, 4, 5, 8]
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
+        operations = [0, 1, 2, 5, 6, 3, 4]
 
     elsif $uname.include?("linux") == true || $uname.include?("Linux") == true #For Linux that isn't NixOS
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)", "5. Launch command", "6. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
-        min = 1; max = 6
-        operations = [0, 1, 2, 3, 4, 5, 8]
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+        operations = [0, 1, 2, 3, 4]
 
-    else # For every other operative system
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (emulated)", "4. Launch command", "5. Backup data"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
-        min = 1; max = 5
-        operations = [0, 1, 2, 4, 5, 8]
-    end
+    else #For every other operative system
+        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (emulated)"]
+        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
+        operations = [0, 1, 2, 4]
+   end
 
-    if answer == false || answer == 0
-        return
-    end
     case operations[answer]
     when 1
         play_game(false)
@@ -224,16 +231,40 @@ while true
     when 4
         play_emulator()
     when 5
-        play_command()
-    when 6
         play_game_nixos(false)
-    when 7
+    when 6
         play_game_nixos(true)
-    when 8
+    end
+end
+
+while true
+    options = ["0. Exit", "1. Play" "2. Launch command", "3. Backup data"]
+    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
+
+    if answer == false || answer == 0
+        return
+    end
+    case answer
+    when 1
+        play_menu()
+    when 2
+        play_command()
+    when 3
         backup_base()
     end
-    if answer >= min && answer < max && $auto_backup == true
+    if $auto_backup == true && answer != 3
         backup_base()
     end
+    # if operations[answer] != 8
+    #     play_menu()
+    #     if $auto_backup == true
+    #         backup_base()
+    #     end
+    # else
+    #     backup_base()
+    # end
+    # if answer >= min && answer < max && $auto_backup == true
+    #     backup_base()
+    # end
     puts ""
 end
