@@ -201,22 +201,22 @@ puts title; puts ""
 
 def play_menu()
     if $platform == 0 #For Windows
-        options = ["0. Exit", "1. Play (native)", "2. Play (emulated)"]
+        options = ["0. Exit", "1. Play", "2. Play (emulated)"]
         operations = [0, 1, 4]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
 
     elsif $uname.include?("nixos") == true #For specifically NixOS
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)"]
+        options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         operations = [0, 1, 2, 5, 6, 3, 4]
 
     elsif $uname.include?("linux") == true || $uname.include?("Linux") == true #For Linux that isn't NixOS
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)"]
+        options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
         operations = [0, 1, 2, 3, 4]
 
     else #For every other operative system
-        options = ["0. Exit", "1. Play", "2. Play (Wine)", "3. Play (emulated)"]
+        options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
         operations = [0, 1, 2, 4]
    end
