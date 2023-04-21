@@ -206,7 +206,7 @@ def play_menu()
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
 
     elsif $uname.include?("nixos") == true #For specifically NixOS
-        options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)" "6. Play (emulated)"]
+        options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         operations = [0, 1, 2, 5, 6, 3, 4]
 
@@ -238,7 +238,7 @@ def play_menu()
 end
 
 while true
-    options = ["0. Exit", "1. Play" "2. Launch command", "3. Backup data"]
+    options = ["0. Exit", "1. Play", "2. Launch command", "3. Backup data"]
     answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
 
     if answer == false || answer == 0
