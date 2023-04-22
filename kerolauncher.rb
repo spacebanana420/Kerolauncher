@@ -164,19 +164,19 @@ def play_command() #Play games, and with or without wine
     end
 end
 
-def quick_launch()
-    paths = Dir::children(".")
-    files = Array::new
-    iter = 1
-    for path in paths
-        if File::file?(path) == true
-            puts "#{iter}: #{path}"
-            files.push(path)
-            iter += 1
-        end
-    end
-    file_choice = read_answer("", "Choose a file to launch" "", "1")
-end
+# def quick_launch()
+#     paths = Dir::children(".")
+#     files = Array::new
+#     iter = 1
+#     for path in paths
+#         if File::file?(path) == true
+#             puts "#{iter}: #{path}"
+#             files.push(path)
+#             iter += 1
+#         end
+#     end
+#     file_choice = read_answer("", "Choose a file to launch" "", "1")
+# end
 
 
 if $ascii_art != ""
