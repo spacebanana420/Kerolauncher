@@ -5,7 +5,7 @@ Kerolauncher works on nearly all operative systems, as long as they support the 
 
 You can play native games or use Wine, Lutris and even conveniently launch emulators.
 
-### Current support for emulation of:
+### Out of the box support for using emulators for:
 * DS/DSi
 * 3DS/2DS
 * Wii
@@ -17,7 +17,7 @@ For the convenience of NixOS users, you also have support for steam-run and appi
 
 # Download and how to use
 ## Download
-Download kerolauncher.rb and (if you haven't yet) [install Ruby on your system](https://www.ruby-lang.org/en/) (Recommended >=3.1.0). Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
+Download Kerolauncher from here or from the repository directly (less stable) and (if you haven't yet) [install Ruby on your system](https://www.ruby-lang.org/en/) (Recommended >=3.1.0). Kerolauncher is an interpreted program so it requires the Ruby interpreter to work.
 
 If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, you also require Wine to play and optionally Lutris.
 
