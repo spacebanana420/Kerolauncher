@@ -33,6 +33,18 @@ def read_answer(options, printstring, errormessage, numrange) #Print options in 
     return answer
 end
 
+def read_answer_loop(printstring)
+    while true
+        puts printstring
+        answer = gets.chomp
+        if answer != ""
+            break
+        end
+        puts "Your answer cannot be empty!"
+    end
+    return answer
+end
+
 def read_answer_array(options_array, printstring, errormessage, numrange) #Print options as an array and read user input
     for option in options_array
         print "#{option}     "
