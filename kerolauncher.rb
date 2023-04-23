@@ -6,7 +6,7 @@ require "./lib/errorchecks.rb"
 
 
 # Checks for errors to avoid launching the program unsafely
-if errorcheck_config() || errorcheck() == false
+if errorcheck_config() == false || errorcheck() == false
     return
 end
 
