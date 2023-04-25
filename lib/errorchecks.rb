@@ -23,7 +23,7 @@ def errorcheck_config()
         if config_file_nocomments.include?(option) == false
             if firsterror == true
                 firsterror = false
-                puts "Config.rb has missing settings! In particular: "
+                puts "Kerolauncher has closed!\nConfig.rb has missing settings! In particular: "
             end
             error_output.push("#{option} ")
         end
@@ -126,6 +126,7 @@ def errorcheck()
         for error in error_output
             puts error; puts ""
         end
+        puts ""
         return false
     end
 end
