@@ -27,6 +27,10 @@ $lutris_games = []
 $lutris_games_id = []
 #The Lutris entry ID for the same programs above at the same order
 
+$lutris_command = "lutris rungameid/"
+#The command to launch lutris with a game ID
+#You can change it for broader support. Example: "flatpak run net.lutris.Lutris rungameid/"
+
 $command_names = []
 #The names of the commands to display
 $command_programs = []
