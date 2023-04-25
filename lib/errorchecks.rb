@@ -1,7 +1,7 @@
 def errorcheck_config()
     error_output = Array.new
 
-    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$ascii_art"]
+    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$lutris_command", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$ascii_art"]
 
     config_file = File::read("config/config.rb")
     config_file_nocomments = ""
@@ -18,15 +18,20 @@ def errorcheck_config()
         end
     end
 
+    firsterror = true
     for option in config_options
         if config_file_nocomments.include?(option) == false
-            error_output.push("Config.rb has missing settings! In particular, #{option}")
+            if firsterror == true
+                firsterror = false
+                puts "Config.rb has missing settings! In particular: "
+            end
+            error_output.push("#{option} ")
         end
     end
 
     if error_output.length != 0
         for error in error_output
-            puts error; puts ""
+            print error
         end
         return false
     end
@@ -82,6 +87,10 @@ def errorcheck()
     wine_thread = Thread::new do
         if $lutris_games.length != $lutris_games_id.length
             error_output.push("Configuration error! The number of Lutris IDs and their names is not the same!")
+        end
+
+        if $lutris_command == ""
+            $lutris_command = "lutris rungameid/"
         end
 
         if $wine_games.length != $wine_game_paths.length
