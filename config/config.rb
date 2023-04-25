@@ -22,6 +22,7 @@ $wine_game_paths = []
 #Add the paths for the said programs above
 #Example: $wine_game_paths = ["/path/to/game.exe", "/path/to/another/game.exe"]
 
+
 $lutris_games = []
 #Add the names for Lutris entries here to be displayed
 
