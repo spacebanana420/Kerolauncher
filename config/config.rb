@@ -1,6 +1,5 @@
 #This is the entire configuration of the program. Manual setup is required from here for setting up the games.
 #All text settings that support multiple entries need to be between quotation marks, and multiple text strings (inside []) need to be separated by commas
-#Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
 #Each entry can be separated between lines, as long as they are inside the brackets and a comma separates them
 
 #The use of Lutris is only available to operative systems supported by the program, such as Linux
@@ -8,24 +7,27 @@
 
 $games = []
 #Add the names for your native programs here
+#Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
 
 $game_paths = []
 #The path(s) to the games' executables, same order as above
 #The programs in this list need to be native to your operative system
+#Example: $game_paths = ["/path/to/game.exe", "/path/to/another/game.exe"]
 
 
 $wine_games = []
-#Add the names for your programs that you want to execute with Wine
+#Add the names for your programs that you want to execute with Wine, just like $games
 
 $wine_game_paths = []
 #Add the paths for the said programs above
-
+#Example: $wine_game_paths = ["/path/to/game.exe", "/path/to/another/game.exe"]
 
 $lutris_games = []
 #Add the names for Lutris entries here to be displayed
 
 $lutris_games_id = []
 #The Lutris entry ID for the same programs above at the same order
+#To know which ID your game entries are assigned to, launch "lutris -l" in the terminal
 
 $lutris_command = "lutris rungameid/"
 #The command to launch lutris with a game ID
@@ -33,12 +35,16 @@ $lutris_command = "lutris rungameid/"
 
 $command_names = []
 #The names of the commands to display
+#Example: $command_names = ["Update system", "Tomodachi Life"]
+
 $command_programs = []
 #List of your commands that can be executed
+#Example: $command_programs = ["sudo dnf upgrade", "citra '/games/Tomodachi Life.3ds'"]
 
 
 $emulated_games = []
 #Add the name of your console games
+#Example: $emulated_games = ["Super Mario World", "Super Smash Bros Brawl"]
 
 $emulated_game_paths = []
 #The path to the roms of the respective games above
@@ -50,9 +56,8 @@ $emulated_game_paths = []
     #.gba
     #.sfc
 
-#The commands for launching console games through the cli
+#The commands for launching emulators when executing ROMs
 #Example: "melonds" or "/path/to/melonds" or "flatpak run net.kuribo64.melonDS"
-#You can change this command to change the emulator or add arguments
 #If left empty, the commands will default to what they originally were
 $nds_command = "melonds" #DS and DSi
 $threeds_command = "citra" #3DS and 2DS
@@ -105,3 +110,4 @@ $ascii_art ="          ''''''''''          ''''''''''
     ''''çççççççççç''''çççççççç''''çççççççç''''
         ''''çççççççç''''çç''''çççççççç''''
             ''''''''''''''''''''''''''"
+#The ASCII art that shows up when you start Kerolauncher. Change to $ascii_art = "" to disable
