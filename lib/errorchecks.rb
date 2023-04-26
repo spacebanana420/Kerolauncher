@@ -1,7 +1,7 @@
 def errorcheck_config()
     error_output = Array.new
 
-    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$lutris_command", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$ascii_art"]
+    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$lutris_command", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$display_horizontal" "$ascii_art"]
 
     config_file = File::read("config/config.rb")
     config_file_nocomments = ""
@@ -39,6 +39,10 @@ end
 
 def errorcheck()
     error_output = Array.new
+
+    if $display_horizontal != false && $display_horizontal != true
+        $display_horizontal = true
+    end
 
     games_thread = Thread::new do
         if $games.length != $game_paths.length

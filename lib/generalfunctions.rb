@@ -47,7 +47,11 @@ end
 
 def read_answer_array(options_array, printstring, errormessage, numrange) #Print options as an array and read user input
     for option in options_array
-        print "#{option}     "
+        if $display_horizontal == true
+            print "#{option}     "
+        else
+            puts "#{option}"
+        end
     end
     puts ""; puts printstring
     answer = gets.chomp
