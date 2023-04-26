@@ -89,6 +89,9 @@ $start_command = ""
 $close_command = ""
 #Optional custom command that is executed after you close the game
 
+$display_horizontal = true
+#When displaying game options, show them horizontally or vertically, change to false to display vertically
+
 $ascii_art ="          ''''''''''          ''''''''''
       ''''##########''      ''##########''''
       ''##############''  ''##############''
