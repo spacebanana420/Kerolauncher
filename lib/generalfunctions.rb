@@ -66,7 +66,11 @@ end
 def read_answer_iterate(options_array, printstring, errormessage) #Print options as an array ordered by number and read user input
     iteration=0
     for option in options_array
-        print "#{iteration}: #{option}     "
+        if $display_horizontal == true
+            print "#{iteration}: #{option}     "
+        else
+            puts "#{iteration}: #{option}"
+        end
         iteration+=1
     end
     iteration-=1
