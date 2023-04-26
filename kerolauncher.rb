@@ -3,7 +3,6 @@ require "./config/config.rb"
 require "./lib/generalfunctions.rb"
 require "./lib/backup.rb"
 require "./lib/errorchecks.rb"
-require "./lib/manageprofiles.rb"
 
 # Checks for errors to avoid launching the program unsafely
 if errorcheck_config() == false || errorcheck() == false
