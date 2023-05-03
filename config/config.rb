@@ -29,7 +29,7 @@ $wine_game_paths = []
 $lutris_games = []
 #Add the names for Lutris entries here to be displayed
 
-$lutris_games_id = []
+$lutris_game_id = []
 #The Lutris entry ID for the same programs above at the same order
 #To know which ID your game entries are assigned to, launch "lutris -l" in the terminal
 
