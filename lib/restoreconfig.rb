@@ -46,7 +46,7 @@ def replace_config_in_line(line, backup_file, options)
 end
 
 def check_for_export ()
-    paths = Dir::children
+    paths = Dir::children(".")
     for path in paths
         if path.include?(".export") == true
             return path
