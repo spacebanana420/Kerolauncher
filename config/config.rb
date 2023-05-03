@@ -15,7 +15,7 @@ $games = []
 $game_paths = []
 #The path(s) to the games' executables, same order as above
 #The programs in this list need to be native to your operative system
-#Example: $game_paths = ["/path/to/game.exe", "/path/to/another/game.exe"]
+#Example: $game_paths = ["/path/to/game", "/path/to/another/game"]
 
 
 $wine_games = []
