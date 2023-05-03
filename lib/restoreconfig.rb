@@ -1,5 +1,5 @@
 def restore_config_base ()
-    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_games_id", "$lutris_command", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$display_horizontal"]
+    config_options = ["$games", "$game_paths", "$wine_games", "$wine_game_paths", "$lutris_games", "$lutris_game_id", "$lutris_command", "$command_names", "$command_programs", "$emulated_games", "$emulated_game_paths", "$nds_command", "$threeds_command", "$wii_command", "$gba_command", "$snes_command", "$custom_emu_command", "$backup_paths", "$backup_destination", "$auto_backup", "$start_command", "$close_command", "$display_horizontal"]
 
     options = ["0. Exit", "1. Export config", "2. Restore config"]
     answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
