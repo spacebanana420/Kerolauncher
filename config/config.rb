@@ -5,6 +5,9 @@
 #The use of Lutris is only available to operative systems supported by the program, such as Linux
 #Non-Windows systems require Wine to be installed in order to launch Windows executables
 
+#Example of path format for Linux, MacOS, BSD, etc: /path/to/game/file
+#Example of path format for Windows: C:/path/to/game/file.exe or C:\\path\\to\\game\\file.exe
+
 $games = []
 #Add the names for your native programs here
 #Example: $games = ["Touhou 16", "A Hat in Time", "Blender", "Super Mario 64"]
