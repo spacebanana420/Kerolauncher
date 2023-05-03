@@ -89,7 +89,7 @@ def errorcheck()
 
 
     wine_thread = Thread::new do
-        if $lutris_games.length != $lutris_games_id.length
+        if $lutris_games.length != $lutris_game_id.length
             error_output.push("Configuration error! The number of Lutris IDs and their names is not the same!")
         end
 
