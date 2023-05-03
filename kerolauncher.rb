@@ -3,6 +3,7 @@ require "./config/config.rb"
 require "./lib/generalfunctions.rb"
 require "./lib/backup.rb"
 require "./lib/errorchecks.rb"
+require "./lib/restoreconfig.rb"
 
 # Checks for errors to avoid launching the program unsafely
 if errorcheck_config() == false || errorcheck() == false
@@ -180,7 +181,7 @@ if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 1.2.1//
+//Kerolauncher version 1.3//
 ////////////////////////////"
 puts "";
 puts title; puts ""
@@ -235,8 +236,8 @@ def play_menu()
 end
 
 while true
-    options = ["0. Exit", "1. Play", "2. Launch command", "3. Backup data"]
-    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
+    options = ["0. Exit", "1. Play", "2. Launch command", "3. Backup data", "4. Export/restore config"]
+    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
 
     if answer == false || answer == 0
         return
@@ -248,8 +249,10 @@ while true
         play_command()
     when 3
         backup_base()
+    when 4
+        restore_config_base()
     end
-    if $auto_backup == true && answer != 3
+    if $auto_backup == true && answer < 3
         backup_base()
     end
     # if operations[answer] != 8
