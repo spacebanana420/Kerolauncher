@@ -93,7 +93,7 @@ def play_lutris() #Play games with Lutris, only for supported systems
         system($start_command)
     end
     puts "Launching #{$lutris_games[gamechoice]} (Lutris)..."
-    system("#{$lutris_command}#{$lutris_games_id[gamechoice]}")
+    system("#{$lutris_command}#{$lutris_game_id[gamechoice]}")
 
     if $close_command != ""
         system($close_command)
