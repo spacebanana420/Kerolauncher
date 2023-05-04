@@ -73,7 +73,7 @@ def import_config (options)
     puts "Your config's settings will be changed, continue? (y/n)"
     answer = gets.chomp
     if answer != "y" && answer != "yes"
-        puts "Cancelling..."
+        puts "Cancelling config import..."
         return
     end
 
@@ -90,4 +90,6 @@ def import_config (options)
         finalconfig += line
     end
     File::write("config/config.rb", finalconfig)
+    puts "Config file updated! You will have to restart Kerolauncher"
+    return true
 end
