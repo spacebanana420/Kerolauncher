@@ -250,7 +250,9 @@ while true
     when 3
         backup_base()
     when 4
-        restore_config_base()
+        if restore_config_base() == true
+            return
+        end
     end
     if $auto_backup == true && answer < 3
         backup_base()
