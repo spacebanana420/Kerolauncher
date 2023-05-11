@@ -1,7 +1,7 @@
 # Kerolauncher
 
 <p align="center">
-<img src="keroppi.svg" width="100" />
+<img src="keroppi.svg" width="150" />
 </p>
 
 Kerolauncher is a cross-platform CLI launcher for launching games and general programs. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, and more.
