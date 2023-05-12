@@ -6,19 +6,17 @@
 
 Kerolauncher is a cross-platform CLI launcher for launching games and general programs. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, and more.
 
-Kerolauncher works on nearly all operative systems, as long as they support the Ruby interpreter, but there are some features that are exclusive to Linux.
-
-You can play native games or use Wine, Lutris and even conveniently launch emulators.
-
-### Out of the box support for using emulators for:
-* DS/DSi
-* 3DS/2DS
-* Wii
-* SNES
-* GBA
-* Custom system
-
-For the convenience of NixOS users, you also have support for steam-run and appimage-run
+### Current features:
+* Native execution of any software
+* Launching any command you want
+* Launching programs through Wine and Lutris
+* Launching programs with appimage-run or steam-run (NixOS)
+* Extensive configuration
+* Backups, automatic or not
+* Error checking
+* Config backup and restoration
+* Out-of-the-box handy support for using emulators
+* Interactive menu
 
 # Download and how to use
 ## Download
