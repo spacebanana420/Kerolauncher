@@ -9,7 +9,7 @@ Kerolauncher is a cross-platform CLI launcher for launching games and general pr
 ### Current features:
 * Native execution of any software
 * Launching any command you want
-* Launching programs through Wine and Lutris
+* Launching programs through Wine and Lutris (Unix-like)
 * Launching programs with appimage-run or steam-run (NixOS)
 * Extensive configuration
 * Backups, automatic or not
