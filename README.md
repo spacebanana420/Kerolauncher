@@ -33,6 +33,7 @@ Install Ruby [from the official website](https://www.ruby-lang.org/en/) and foll
 Install the Ruby package from your native package manager or compile from source
 
 * Debian: ```apt install ruby```
+* Arch: ```pacman -S ruby```
 
 ## How to use
 Open config.rb in the config folder and set up your games, this setup is required.
