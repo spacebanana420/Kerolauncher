@@ -16,7 +16,7 @@ Kerolauncher is a cross-platform CLI launcher for launching games and general pr
 * Error checking
 * Config backup and restoration
 * Out-of-the-box handy support for using emulators
-* Interactive menu
+* Interactive menu (terminal user interface)
 
 # Download and how to use
 ## Download
