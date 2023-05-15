@@ -65,6 +65,11 @@ end
 
 def read_answer_iterate(options_array, printstring, errormessage) #Print options as an array ordered by number and read user input
     iteration=0
+    if $display_horizontal == true
+        print "#{iteration}: Exit     "
+    else
+        puts "#{iteration}: Exit"
+    end
     for option in options_array
         if $display_horizontal == true
             print "#{iteration}: #{option}     "
@@ -73,14 +78,13 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
         end
         iteration+=1
     end
-    iteration-=1
     puts ""; puts printstring
     answer = gets.chomp
     numrange = ""
     for digit in 0..iteration
         numrange += digit.to_s
     end
-    if numrange.include?(answer) == false
+    if numrange.include?(answer) == false || answer == "0"
         puts errormessage
         return false
     end
