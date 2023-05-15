@@ -84,11 +84,13 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
     for digit in 0..iteration
         numrange += digit.to_s
     end
-    if numrange.include?(answer) == false || answer == "0"
+    if numrange.include?(answer) == false
         puts errormessage
         return false
     end
-    answer = answer.to_i - 1
+    answer = answer.to_i
+    if answer == 0 then return false end
+    answer -= 1
     return answer
 end
 
