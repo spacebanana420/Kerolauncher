@@ -88,7 +88,7 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
         puts errormessage
         return false
     end
-    answer = answer.to_i
+    answer = answer.to_i - 1
     return answer
 end
 
