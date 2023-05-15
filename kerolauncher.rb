@@ -20,7 +20,6 @@ else
     $uname = `uname -a`
 end
 
-
 def play_game(usewine) #Play games, and with or without wine
     if usewine == true
         if $wine_games.length == 0
@@ -181,7 +180,7 @@ if $ascii_art != ""
     puts $ascii_art
 end
 title = "////////////////////////////
-//Kerolauncher version 1.3//
+//Kerolauncher version 1.3.1//
 ////////////////////////////"
 puts "";
 puts title; puts ""
