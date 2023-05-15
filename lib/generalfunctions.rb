@@ -71,12 +71,12 @@ def read_answer_iterate(options_array, printstring, errormessage) #Print options
         puts "#{iteration}: Exit"
     end
     for option in options_array
+        iteration+=1
         if $display_horizontal == true
             print "#{iteration}: #{option}     "
         else
             puts "#{iteration}: #{option}"
         end
-        iteration+=1
     end
     puts ""; puts printstring
     answer = gets.chomp
