@@ -40,6 +40,7 @@ Install the Ruby package from your native package manager or compile from source
 * Debian: ```apt install ruby```
 * Arch: ```pacman -S ruby```
 * openSUSE: ```zypper install ruby```
+* NixOS: Add to your configuration.nix: ```ruby``` or whatever is latest (like ```ruby_3_2```)
 
 ## How to use
 Open config.rb in the config folder and set up your games, this setup is required.
