@@ -162,31 +162,6 @@ def play_command() #Play games, and with or without wine
     end
 end
 
-# def quick_launch()
-#     paths = Dir::children(".")
-#     files = Array::new
-#     iter = 1
-#     for path in paths
-#         if File::file?(path) == true
-#             puts "#{iter}: #{path}"
-#             files.push(path)
-#             iter += 1
-#         end
-#     end
-#     file_choice = read_answer("", "Choose a file to launch" "", "1")
-# end
-
-# def print_options(options, startplay, endplay) #test first!
-#     option_numbers = ""
-#     for i in 0..options.length-1
-#         option_numbers += i.to_s
-#     end
-#     answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", option_numbers)
-#     if answer == false
-#         return
-#     end
-# end
-
 def play_menu()
     if $platform == 0 #For Windows
         options = ["0. Exit", "1. Play", "2. Play (emulated)"]
@@ -258,16 +233,5 @@ while true
     if $auto_backup == true && answer < 3
         backup_base()
     end
-    # if operations[answer] != 8
-    #     play_menu()
-    #     if $auto_backup == true
-    #         backup_base()
-    #     end
-    # else
-    #     backup_base()
-    # end
-    # if answer >= min && answer < max && $auto_backup == true
-    #     backup_base()
-    # end
     puts ""
 end
