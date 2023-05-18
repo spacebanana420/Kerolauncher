@@ -4,6 +4,7 @@ require "./lib/generalfunctions.rb"
 require "./lib/backup.rb"
 require "./lib/errorchecks.rb"
 require "./lib/restoreconfig.rb"
+require "./lib/cliargs.rb"
 
 # Checks for errors to avoid launching the program unsafely
 if errorcheck_config() == false || errorcheck() == false
@@ -175,16 +176,6 @@ end
 #     file_choice = read_answer("", "Choose a file to launch" "", "1")
 # end
 
-
-if $ascii_art != ""
-    puts $ascii_art
-end
-title = "////////////////////////////
-//Kerolauncher version 1.3.1//
-////////////////////////////"
-puts "";
-puts title; puts ""
-
 # def print_options(options, startplay, endplay) #test first!
 #     option_numbers = ""
 #     for i in 0..options.length-1
@@ -233,6 +224,17 @@ def play_menu()
         play_game_nixos(true)
     end
 end
+
+if arg_base() == true then return end
+ARGV.clear
+if $ascii_art != ""
+    puts $ascii_art
+end
+title = "////////////////////////////
+//Kerolauncher version 1.4//
+////////////////////////////"
+puts "";
+puts title; puts ""
 
 while true
     options = ["0. Exit", "1. Play", "2. Launch command", "3. Backup data", "4. Export/restore config"]
