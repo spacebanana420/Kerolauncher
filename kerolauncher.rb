@@ -82,8 +82,7 @@ end
 
 def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
-        puts "You did not add any Lutris entries yet! Open config.rb to setup the configuration"
-        puts "To find out what ID your entries use, type 'lutris -l' in the terminal"
+        puts "You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type 'lutris -l' in the terminal"
         return
     end
     gamechoice = read_answer_iterate($lutris_games, "Choose a game to play", "You need to choose one of the available games!")
@@ -133,8 +132,7 @@ def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
     elsif $custom_emu_command != ""
         system("#{$custom_emu_command} '#{$emulated_game_paths[gamechoice]}'")
     else
-        puts "Error! ROM type is unknown!"
-        puts "To launch unknown ROM files, you need to set up $custom_emu_command in config.rb"
+        puts "Error! ROM type is unknown!\nTo launch unknown ROM files, you need to set up $custom_emu_command in config.rb"
         return
     end
     if $close_command != ""
@@ -209,8 +207,7 @@ end
 title = "////////////////////////////
 //Kerolauncher version 1.4//
 ////////////////////////////"
-puts "";
-puts title; puts ""
+puts "\n#{title}\n"
 
 while true
     options = ["0. Exit", "1. Play", "2. Launch command", "3. File browser/quick launch", "4. Backup data", "5. Export/restore config"]
