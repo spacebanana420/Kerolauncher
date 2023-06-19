@@ -1,4 +1,4 @@
-require "zlib"
+#require "zlib"
 require "./config/config.rb"
 require "./lib/generalfunctions.rb"
 require "./lib/backup.rb"
