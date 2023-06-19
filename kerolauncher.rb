@@ -200,14 +200,14 @@ def play_menu()
 end
 
 if arg_base() == true then return end
-
+title = ""
 if $ascii_art != ""
-    puts $ascii_art
+    title += $ascii_art + "\n\n"
 end
-title = "////////////////////////////
+title += "////////////////////////////
 //Kerolauncher version 1.4//
 ////////////////////////////"
-puts "\n#{title}\n"
+puts "#{title}\n\n"
 
 while true
     options = ["0. Exit", "1. Play", "2. Launch command", "3. File browser", "4. Backup data", "5. Export/restore config"]
