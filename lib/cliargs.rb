@@ -7,7 +7,6 @@ def arg_base ()
     when "help"
         arg_help(); return true
     when "play"
-        ARGV.clear
         if args.length >= 2 then arg_play(args[1]) else arg_play("") end
         return true
     when "cmd"
