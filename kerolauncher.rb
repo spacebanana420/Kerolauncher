@@ -5,6 +5,7 @@ require "./lib/backup.rb"
 require "./lib/errorchecks.rb"
 require "./lib/restoreconfig.rb"
 require "./lib/cliargs.rb"
+require "./lib/filebrowser.rb"
 
 # Checks for errors to avoid launching the program unsafely
 if errorcheck_config() == false || errorcheck() == false
@@ -212,8 +213,8 @@ puts "";
 puts title; puts ""
 
 while true
-    options = ["0. Exit", "1. Play", "2. Launch command", "3. Backup data", "4. Export/restore config"]
-    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+    options = ["0. Exit", "1. Play", "2. Launch command", "3. File browser/quick launch", "4. Backup data", "5. Export/restore config"]
+    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
 
     if answer == false || answer == 0
         return
@@ -224,13 +225,15 @@ while true
     when 2
         play_command()
     when 3
-        backup_base()
+        filebrowser()
     when 4
+        backup_base()
+    when 5
         if restore_config_base() == true
             return
         end
     end
-    if $auto_backup == true && answer < 3
+    if $auto_backup == true && answer < 4
         backup_base()
     end
     puts ""
