@@ -22,8 +22,7 @@
 # end
 
 def read_answer(options, printstring, errormessage, numrange) #Print options in 1 string and read user input
-    puts options
-    puts printstring
+    puts "#{options}\n#{printstring}"
     answer = gets.chomp
     if numrange.include?(answer) == false
         puts errormessage
@@ -46,14 +45,15 @@ def read_answer_loop(printstring)
 end
 
 def read_answer_array(options_array, printstring, errormessage, numrange) #Print options as an array and read user input
+    printtext=""
     for option in options_array
         if $display_horizontal == true
-            print "#{option}     "
+            printtext += "#{option}     "
         else
-            puts "#{option}"
+            printtext += "\n#{option}"
         end
     end
-    puts ""; puts printstring
+    puts "#{printtext}\n#{printstring}"
     answer = gets.chomp
     if numrange.include?(answer) == false
         puts errormessage
@@ -65,20 +65,21 @@ end
 
 def read_answer_iterate(options_array, printstring, errormessage) #Print options as an array ordered by number and read user input
     iteration=0
+    printtext=""
     if $display_horizontal == true
-        print "#{iteration}: Exit     "
+        printtext += "#{iteration}: Exit     "
     else
-        puts "#{iteration}: Exit"
+        printtext += "\n#{iteration}: Exit"
     end
     for option in options_array
         iteration+=1
         if $display_horizontal == true
-            print "#{iteration}: #{option}     "
+            printtext += "\n#{iteration}: #{option}     "
         else
-            puts "#{iteration}: #{option}"
+            printtext += "\n#{iteration}: #{option}"
         end
     end
-    puts ""; puts printstring
+    puts "#{printtext}\n#{printstring}"
     answer = gets.chomp
     numrange = ""
     for digit in 0..iteration
