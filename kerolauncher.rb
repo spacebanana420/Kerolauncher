@@ -200,7 +200,7 @@ def play_menu()
 end
 
 if arg_base() == true then return end
-ARGV.clear
+
 if $ascii_art != ""
     puts $ascii_art
 end
