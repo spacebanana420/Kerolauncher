@@ -7,11 +7,17 @@ def arg_base ()
     when "help"
         arg_help(); return true
     when "play"
+        ARGV.clear
         if args.length >= 2 then arg_play(args[1]) else arg_play("") end
         return true
     when "cmd"
+        ARGV.clear
         play_command(); return true
+    when "files"
+        ARGV.clear
+        filebrowser(); return true
     end
+    ARGV.clear
     return false
 end
 
@@ -30,6 +36,8 @@ Alternatively, you can use the following options to use the argument-based cli
             The available modes can vary between different operative systems
 
         - cmd - Opens the menu for the available configured commands
+
+        - files - Opens the file explorer
 
         ----Menu Operations----
 
