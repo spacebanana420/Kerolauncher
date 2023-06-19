@@ -45,9 +45,9 @@ Install the Ruby package from your native package manager or compile from source
 * NixOS: Add to your configuration.nix: ```ruby``` or whatever is latest (like ```ruby_3_2```)
 
 ## How to use
-Open config.rb in the config folder and set up your games, this setup is required.
+Launch Kerolauncher from a terminal with ```ruby kerolauncher.rb```, or just double-click kerolauncher.rb if you are on Windows.
 
-After everything is configured, you can execute the launcher from a terminal with ```ruby kerolauncher.rb```.
+Kerolauncher needs that you configure your games. Open config.rb in the config folder and set up your games.
 
 # Configuration
 Kerolauncher's configuration is located directly in config.rb, inside the config folder. Configuration for game names, game paths and backup paths is required.
