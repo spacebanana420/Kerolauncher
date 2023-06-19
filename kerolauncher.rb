@@ -210,7 +210,7 @@ title = "////////////////////////////
 puts "\n#{title}\n"
 
 while true
-    options = ["0. Exit", "1. Play", "2. Launch command", "3. File browser/quick launch", "4. Backup data", "5. Export/restore config"]
+    options = ["0. Exit", "1. Play", "2. Launch command", "3. File browser", "4. Backup data", "5. Export/restore config"]
     answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
 
     if answer == false || answer == 0
