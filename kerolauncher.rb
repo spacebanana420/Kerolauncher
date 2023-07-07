@@ -167,7 +167,7 @@ def play_menu()
         operations = [0, 1, 4]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
 
-    elsif $uname.include?("nixos") == true #For specifically NixOS
+    elsif File::exist?("/etc/nixos/configuration.nix") == true #For specifically NixOS
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         operations = [0, 1, 2, 5, 6, 3, 4]
