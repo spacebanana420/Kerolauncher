@@ -37,7 +37,7 @@ If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, 
 Install Ruby [from the official website](https://www.ruby-lang.org/en/) and follow the instructions
 
 ## Install Ruby (Linux, BSD, etc)
-Install the Ruby package from your native package manager or compile from source
+Install Ruby from your native package manager
 
 * Debian: ```apt install ruby```
 * Arch: ```pacman -S ruby```
