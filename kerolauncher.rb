@@ -1,4 +1,3 @@
-#require "zlib"
 require "./config/config.rb"
 require "./lib/generalfunctions.rb"
 require "./lib/backup.rb"
@@ -16,10 +15,16 @@ $starting_path = Dir::pwd
 
 if "ABCDEFGHIJKLMNOPQRSTUVWXYZ".include?($starting_path.chars[0]) == true && $starting_path.chars[1] == ":"
     $platform = 0 #Windows
-    $uname = ""
+elsif File::exist?("/etc/nixos/configuration.nix") == true
+    $platform = 1 #NixOS
 else
-    $platform = 1 #Non Windows: Linux, MacOS, BSD, Solaris, etc
-    $uname = `uname -a`
+    uname = `uname -a`
+    if uname.include?("linux") == true || uname.include?("Linux") == true
+        $platform = 2 #Linux
+    else
+        $platform = 3 #MacOS, BSD, Haiku, etc
+    end
+
 end
 
 def play_game(usewine) #Play games, and with or without wine
@@ -162,26 +167,24 @@ def play_command() #Play games, and with or without wine
 end
 
 def play_menu()
-    if $platform == 0 #For Windows
+    case $platform
+    when 0
         options = ["0. Exit", "1. Play", "2. Play (emulated)"]
         operations = [0, 1, 4]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
-
-    elsif File::exist?("/etc/nixos/configuration.nix") == true #For specifically NixOS
+    when 1
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         operations = [0, 1, 2, 5, 6, 3, 4]
-
-    elsif $uname.include?("linux") == true || $uname.include?("Linux") == true #For Linux that isn't NixOS
+    when 2
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
         operations = [0, 1, 2, 3, 4]
-
-    else #For every other operative system
+    when 3
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (emulated)"]
         answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
         operations = [0, 1, 2, 4]
-   end
+    end
 
     case operations[answer]
     when 1
@@ -200,12 +203,13 @@ def play_menu()
 end
 
 if arg_base() == true then return end
+
 title = ""
 if $ascii_art != ""
     title += $ascii_art + "\n\n"
 end
 title += "////////////////////////////
-//Kerolauncher version 1.4.1//
+//Kerolauncher version 1.4.2//
 ////////////////////////////"
 puts "#{title}\n\n"
 
