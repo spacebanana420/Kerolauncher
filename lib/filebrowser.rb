@@ -18,7 +18,7 @@ end
 
 def open_path(path)
     if File::file?(path) == true
-        if File::executable?(path) == true then system("./" + path) end
+        if File::executable?(path) == true then system("./" + path) return end
         if $platform == 0
             system("explorer.exe '#{path}'")
         else
