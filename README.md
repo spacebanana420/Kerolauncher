@@ -26,12 +26,17 @@ Kerolauncher is a cross-platform CLI launcher for launching games and general pr
 </p>
 
 # Download and how to use
+## Requirements
+* Ruby
+* Optional: Wine
+* Optional: Lutris
+
 ## Download
-Kerolauncher works on most operative systems and architectures known to man, as long as they support Ruby. This includes Linux systems, Windows, MacOS, FreeBSD, other BSDs and even possibly Haiku, Solaris and others, as well as x86, arm, powerpc, risc-v, etc. Kerolauncher is an interpreted program so it requires the Ruby interpreter to be installed to work (Recommended version 3.0.0 or higher).
+Kerolauncher works on most operative systems and architectures, basically the ones supported by Ruby. Linux systems and Windows are officially tested, but MacOS, BSD systems, etc, should also be fine.
+
+Kerolauncher is an interpreted program so it requires the Ruby interpreter to be installed to work (Recommended version 3.0.0 or higher).
 
 Download Kerolauncher [from here](https://github.com/spacebanana420/Kerolauncher/releases) or from the repository directly (less stable).
-
-If you are on Linux/MacOS/BSD/etc and you want to play Windows-exclusive games, you also require Wine to play and optionally Lutris.
 
 ## Install Ruby (Windows and MacOS)
 Install Ruby [from the official website](https://www.ruby-lang.org/en/) and follow the instructions
