@@ -34,7 +34,7 @@ Kerolauncher is a cross-platform CLI launcher for launching games and general pr
 * **Lutris (optional, Linux)**
   - launcher for Linux
 * **xdg-utils (except Windows)**
-  - Present in most OSes with a GUI. Uses the desktop's preferred program to open the file in question
+  - Present by default in most OSes with a GUI. Uses the desktop's preferred program to open the file in question
 
 ## Download
 Kerolauncher works on most operative systems and architectures, basically the ones supported by Ruby. Linux systems and Windows are officially tested, but MacOS, BSD systems, etc, should also be fine.
