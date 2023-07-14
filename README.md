@@ -4,7 +4,9 @@
 <img src="keroppi.svg" width="150" />
 </p>
 
-Kerolauncher is a cross-platform CLI launcher for launching games and general programs. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, and more.
+Kerolauncher is a cross-platform launcher that adds a terminal interface for launching games, commands and general programs, as well as using WINE, Lutris and a few emulators, as long as you have them installed. The launcher makes it fast and convenient to launch your programs and games from 1 source while also providing support for backups, custom commands, configuration, and more.
+
+You can turn Kerolauncher into a front-end of any software through the configuration of custom commands.
 
 ### Current features:
 * Native execution of any software
