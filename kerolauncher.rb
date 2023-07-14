@@ -209,7 +209,7 @@ if $ascii_art != ""
     title += $ascii_art + "\n\n"
 end
 title += "////////////////////////////
-//Kerolauncher version 1.4.2//
+//Kerolauncher version 1.4.3//
 ////////////////////////////"
 puts "#{title}\n\n"
 
