@@ -68,13 +68,14 @@ end
 
 def arg_play(inmode) #Limit choice for different systems
     avaliable_modes = ["native", "emulator"]
-    if $platform == 1
+
+    if $platform >= 1
         avaliable_modes.push("wine")
     end
-    if $uname.include?("linux") == true || $uname.include?("Linux") == true
+    if $platform == 1 || $platform == 2
         avaliable_modes.push("lutris")
     end
-    if $uname.include?("nixos") == true
+    if $platform == 1
         avaliable_modes.push("steamrun"); avaliable_modes.push("appimagerun")
     end
 
