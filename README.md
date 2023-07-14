@@ -33,6 +33,8 @@ Kerolauncher is a cross-platform CLI launcher for launching games and general pr
   - running Windows programs on Linux, MacOS, etc
 * **Lutris (optional, Linux)**
   - launcher for Linux
+*  **steam-run and appimage-run (optional, NixOS)**
+  - Hassle-free launch of appimages and dynamic-linked binaries on NixOS
 * **xdg-utils (except Windows)**
   - Present by default in most OSes with a GUI. Uses the desktop's preferred program to open the file in question
 
