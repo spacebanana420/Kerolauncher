@@ -53,9 +53,9 @@ def play_game(usewine) #Play games, and with or without wine
     end
     puts "Launching #{$games[gamechoice]}..."
     if usewine == true
-        system("wine '#{$game_paths[gamechoice]}'")
+        system("wine \"#{$game_paths[gamechoice]}\"")
     else
-        system("'#{$game_paths[gamechoice]}'")
+        system("\"#{$game_paths[gamechoice]}\"")
     end
     if $close_command != ""
         system($close_command)
@@ -76,9 +76,9 @@ def play_game_nixos(appimage) #Exclusive options for NixOS, to use steam-run and
     end
     puts "Launching #{$games[gamechoice]}..."
     if appimage == true
-        system("appimage-run '#{$game_paths[gamechoice]}'")
+        system("appimage-run \"#{$game_paths[gamechoice]}\"")
     else
-        system("steam-run '#{$game_paths[gamechoice]}'")
+        system("steam-run \"#{$game_paths[gamechoice]}\"")
     end
     if $close_command != ""
         system($close_command)
@@ -87,7 +87,7 @@ end
 
 def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
-        puts "You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type 'lutris -l' in the terminal"
+        puts "You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type \"lutris -l\" in the terminal"
         return
     end
     gamechoice = read_answer_iterate($lutris_games, "Choose a game to play", "You need to choose one of the available games!")
@@ -120,22 +120,22 @@ def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
 
     puts "Launching #{$emulated_games[gamechoice]}..."
     if $emulated_game_paths[gamechoice].include?(".nds") == true
-        system("#{$nds_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$nds_command} \"#{$emulated_game_paths[gamechoice]}\"")
 
     elsif $emulated_game_paths[gamechoice].include?(".cia") == true || $emulated_game_paths[gamechoice].include?(".cci") == true || $emulated_game_paths[gamechoice].include?(".3ds") == true
-        system("#{$threeds_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$threeds_command} \"#{$emulated_game_paths[gamechoice]}\"")
 
     elsif $emulated_game_paths[gamechoice].include?(".wbfs") == true
-        system("#{$wii_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$wii_command} \"#{$emulated_game_paths[gamechoice]}\"")
 
     elsif $emulated_game_paths[gamechoice].include?(".gba") == true
-        system("#{$gba_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$gba_command} \"#{$emulated_game_paths[gamechoice]}\"")
 
     elsif $emulated_game_paths[gamechoice].include?(".sfc") == true
-        system("#{$snes_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$snes_command} \"#{$emulated_game_paths[gamechoice]}\"")
 
     elsif $custom_emu_command != ""
-        system("#{$custom_emu_command} '#{$emulated_game_paths[gamechoice]}'")
+        system("#{$custom_emu_command} \"#{$emulated_game_paths[gamechoice]}\"")
     else
         puts "Error! ROM type is unknown!\nTo launch unknown ROM files, you need to set up $custom_emu_command in config.rb"
         return
@@ -209,7 +209,7 @@ if $ascii_art != ""
     title += $ascii_art + "\n\n"
 end
 title += "////////////////////////////
-//Kerolauncher version 1.4.3//
+//Kerolauncher version 1.4.4//
 ////////////////////////////"
 puts "#{title}\n\n"
 

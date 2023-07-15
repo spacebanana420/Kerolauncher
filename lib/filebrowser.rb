@@ -20,9 +20,9 @@ def open_path(path)
     if File::file?(path) == true
         if File::executable?(path) == true then system("./" + path); return end
         if $platform == 0
-            system("explorer.exe '#{path}'")
+            system("explorer.exe \"#{path}\"")
         else
-            system("xdg-open '#{path}'")
+            system("xdg-open \"#{path}\"")
         end
     else
         Dir::chdir(path)
