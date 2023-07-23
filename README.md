@@ -57,7 +57,7 @@ Install Ruby from your native package manager
 * Arch: ```pacman -S ruby```
 * openSUSE: ```zypper install ruby```
 * NixOS: Add to your list of packages in your configuration.nix: ```ruby``` or whatever is latest (like ```ruby_3_2```)
-* FreeBSD: ```ruby32``` (eventually in the future ruby33, etc)
+* FreeBSD: ```pkg install ruby32``` (eventually in the future ruby33, etc)
 
 ## How to use
 Launch Kerolauncher from a terminal with ```ruby kerolauncher.rb```, or just double-click kerolauncher.rb if you are on Windows.
