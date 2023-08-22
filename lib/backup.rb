@@ -3,8 +3,7 @@ def backup_base()
         $backup_destination = $starting_path
     end
     if $backup_paths.length == 0
-        puts "You did not add any backup paths yet! Open the program file to setup the configuration"
-        puts "You can add the path to a file or folder"
+        presstocontinue("You did not add any backup paths yet! Open the program file to setup the configuration\nYou can add the path to a file or folder")
         return
     end
     #operation = read_answer("0. Backup screenshots     1. Backup save", "Choose an operation", "Choose a correct operation!", "01")

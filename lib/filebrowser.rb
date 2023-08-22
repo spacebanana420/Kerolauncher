@@ -1,5 +1,6 @@
 def filebrowser()
     while true
+        clearterminal()
         paths, paths_num = print_dirs()
         answer = gets.chomp; answernum = answer.to_i
         count=0

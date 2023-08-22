@@ -1,4 +1,5 @@
 require "./config/config.rb"
+require "./lib/tui.rb"
 require "./lib/generalfunctions.rb"
 require "./lib/backup.rb"
 require "./lib/errorchecks.rb"
@@ -28,16 +29,12 @@ else
 end
 
 def play_game(usewine) #Play games, and with or without wine
-    if usewine == true
-        if $wine_games.length == 0
-            puts "You did not add any Wine game entries yet! Open config.rb to setup the configuration"
-            return
-        end
-    else
-        if $games.length == 0
-            puts "You did not add any game entries yet! Open config.rb to setup the configuration"
-            return
-        end
+    if usewine == true && $wine_games.length == 0
+        presstocontinue("You did not add any Wine game entries yet! Open config.rb to setup the configuration")
+        return
+    elsif $games.length == 0
+        presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
+        return
     end
 
     if usewine == true
@@ -64,7 +61,7 @@ end
 
 def play_game_nixos(appimage) #Exclusive options for NixOS, to use steam-run and appimage-run
     if $games.length == 0
-        puts "You did not add any game entries yet! Open config.rb to setup the configuration"
+        presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
         return
     end
     gamechoice = read_answer_iterate($games, "Choose a game to play", "You need to choose one of the available games!")
@@ -87,7 +84,7 @@ end
 
 def play_lutris() #Play games with Lutris, only for supported systems
     if $lutris_games.length == 0
-        puts "You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type \"lutris -l\" in the terminal"
+        presstocontinue("You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type \"lutris -l\" in the terminal")
         return
     end
     gamechoice = read_answer_iterate($lutris_games, "Choose a game to play", "You need to choose one of the available games!")
@@ -107,7 +104,7 @@ end
 
 def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
     if $emulated_games.length == 0
-        puts "You did not add any console game entries yet! Open config.rb to setup the configuration"
+        presstocontinue("You did not add any console game entries yet! Open config.rb to setup the configuration")
         return
     end
     gamechoice = read_answer_iterate($emulated_games, "Choose a game to play", "You need to choose one of the available games!")
@@ -137,7 +134,7 @@ def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
     elsif $custom_emu_command != ""
         system("#{$custom_emu_command} \"#{$emulated_game_paths[gamechoice]}\"")
     else
-        puts "Error! ROM type is unknown!\nTo launch unknown ROM files, you need to set up $custom_emu_command in config.rb"
+        presstocontinue("Error! ROM type is unknown!\nTo launch unknown ROM files, you need to set up $custom_emu_command in config.rb")
         return
     end
     if $close_command != ""
@@ -148,7 +145,7 @@ end
 
 def play_command() #Play games, and with or without wine
     if $command_programs.length == 0
-        puts "You did not add any game entries yet! Open config.rb to setup the configuration"
+        presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
         return
     end
 
@@ -167,23 +164,28 @@ def play_command() #Play games, and with or without wine
 end
 
 def play_menu()
+    clearterminal()
+    title = "///Play Menu///\n"
     case $platform
     when 0
         options = ["0. Exit", "1. Play", "2. Play (emulated)"]
         operations = [0, 1, 4]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012")
+        answer = spawntui(title, options, "Choose an operation", "You need to choose a correct operation!", "012")
     when 1
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (steam-run)", "4. Play (appimage-run)", "5. Play (Lutris)", "6. Play (emulated)"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123456")
+        answer = spawntui(title, options, "Choose an operation", "You need to choose a correct operation!", "0123456")
         operations = [0, 1, 2, 5, 6, 3, 4]
     when 2
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (Lutris)", "4. Play (emulated)"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "01234")
+        answer = spawntui(title, options, "Choose an operation", "You need to choose a correct operation!", "01234")
         operations = [0, 1, 2, 3, 4]
     when 3
         options = ["0. Exit", "1. Play (native)", "2. Play (Wine)", "3. Play (emulated)"]
-        answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "0123")
+        answer = spawntui(title, options, "Choose an operation", "You need to choose a correct operation!", "0123")
         operations = [0, 1, 2, 4]
+    end
+    if answer == nil
+        return
     end
 
     case operations[answer]
@@ -204,18 +206,20 @@ end
 
 if arg_base() == true then return end
 
+
 title = ""
 if $ascii_art != ""
     title += $ascii_art + "\n\n"
 end
 title += "////////////////////////////
-//Kerolauncher version 1.4.4//
-////////////////////////////"
-puts "#{title}\n\n"
+//Kerolauncher version 1.5//
+////////////////////////////\n"
+
 
 while true
+    clearterminal()
     options = ["0. Exit", "1. Play", "2. Launch command", "3. File browser", "4. Backup data", "5. Export/restore config"]
-    answer = read_answer_array(options, "Choose an operation", "You need to choose a correct operation!", "012345")
+    answer = spawntui(title, options, "Choose an operation", "You need to choose a correct operation!", "012345")
 
     if answer == false || answer == 0
         return
