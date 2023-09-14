@@ -37,8 +37,8 @@ You can turn Kerolauncher into a front-end of any software through the configura
   - launcher for Linux
 * **steam-run and appimage-run (optional, NixOS)**
   - Hassle-free launch of appimages and dynamic-linked binaries on NixOS
-* **xdg-utils (except Windows)**
-  - Present by default in most OSes with a GUI. Uses the desktop's preferred program to open the file in question
+* **xdg-utils (except Windows and MacOS)**
+  - Present by default in most OSes with a GUI that follows the xdg desktop portal. Uses the desktop's preferred program to open the file in question
 
 ## Download
 Kerolauncher works on most operative systems and architectures, basically the ones supported by Ruby. Linux systems and Windows are officially tested, but MacOS, BSD systems, etc, should also be fine.
