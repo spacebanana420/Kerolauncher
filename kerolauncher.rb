@@ -6,13 +6,14 @@ require "./lib/errorchecks.rb"
 require "./lib/restoreconfig.rb"
 require "./lib/cliargs.rb"
 require "./lib/filebrowser.rb"
+require "./lib/readtemplates.rb"
 
 # Checks for errors to avoid launching the program unsafely
 if errorcheck_config() == false || errorcheck() == false
     return
 end
 
-$starting_path = Dir::pwd
+$starting_path = Dir.pwd()
 
 if "ABCDEFGHIJKLMNOPQRSTUVWXYZ".include?($starting_path.chars[0]) == true && $starting_path.chars[1] == ":"
     $platform = 0 #Windows
@@ -28,74 +29,39 @@ else
 
 end
 
-def play_game(usewine) #Play games, and with or without wine
-    if usewine == true && $wine_games.length == 0
-        presstocontinue("You did not add any Wine game entries yet! Open config.rb to setup the configuration")
-        return
-    elsif $games.length == 0
-        presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
+def play_game(gameList, gamePaths, mode) #Play games, and with or without wine
+    if gameList.length == 0
+        if mode == "wine"
+            presstocontinue("You did not add any Wine game entries yet! Open config.rb to setup the configuration")
+        elsif mode == "lutris"
+            presstocontinue("You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type \"lutris -l\" in the terminal")
+        else
+            presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
+        end
         return
     end
+    gamechoice = read_answer_iterate(gameList, "Choose a game to play", "You need to choose one of the available games!")
 
-    if usewine == true
-        gamechoice = read_answer_iterate($wine_games, "Choose a game to play", "You need to choose one of the available games!")
-    else
-        gamechoice = read_answer_iterate($games, "Choose a game to play", "You need to choose one of the available games!")
-    end
     if gamechoice == false
         return
     end
     if $start_command != ""
         system($start_command)
     end
-    puts "Launching #{$games[gamechoice]}..."
-    if usewine == true
-        system("wine \"#{$game_paths[gamechoice]}\"")
-    else
-        system("\"#{$game_paths[gamechoice]}\"")
-    end
-    if $close_command != ""
-        system($close_command)
-    end
-end
 
-def play_game_nixos(appimage) #Exclusive options for NixOS, to use steam-run and appimage-run
-    if $games.length == 0
-        presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
-        return
+    puts "Launching #{gameList[gamechoice]}..."
+    case mode
+    when "wine"
+        system("wine", gamePaths[gamechoice])
+    when "native"
+        system([gamePaths[gamechoice]])
+    when "lutris"
+        system($lutris_command, gamePaths[gamechoice])
+    when "nixos-appimage"
+        system("appimage-run", gamePaths[gamechoice])
+    when "nixos-steamrun"
+        system("steam-run", gamePaths[gamechoice])
     end
-    gamechoice = read_answer_iterate($games, "Choose a game to play", "You need to choose one of the available games!")
-    if gamechoice == false
-        return
-    end
-    if $start_command != ""
-        system($start_command)
-    end
-    puts "Launching #{$games[gamechoice]}..."
-    if appimage == true
-        system("appimage-run \"#{$game_paths[gamechoice]}\"")
-    else
-        system("steam-run \"#{$game_paths[gamechoice]}\"")
-    end
-    if $close_command != ""
-        system($close_command)
-    end
-end
-
-def play_lutris() #Play games with Lutris, only for supported systems
-    if $lutris_games.length == 0
-        presstocontinue("You did not add any Lutris entries yet! Open config.rb to setup the configuration\nTo find out what ID your entries use, type \"lutris -l\" in the terminal")
-        return
-    end
-    gamechoice = read_answer_iterate($lutris_games, "Choose a game to play", "You need to choose one of the available games!")
-    if gamechoice == false
-        return
-    end
-    if $start_command != ""
-        system($start_command)
-    end
-    puts "Launching #{$lutris_games[gamechoice]} (Lutris)..."
-    system("#{$lutris_command}#{$lutris_game_id[gamechoice]}")
 
     if $close_command != ""
         system($close_command)
@@ -145,7 +111,7 @@ end
 
 def play_command() #Play games, and with or without wine
     if $command_programs.length == 0
-        presstocontinue("You did not add any game entries yet! Open config.rb to setup the configuration")
+        presstocontinue("You did not add any command entries yet! Open config.rb to setup the configuration")
         return
     end
 
@@ -190,17 +156,20 @@ def play_menu()
 
     case operations[answer]
     when 1
-        play_game(false)
+        play_game($games, $game_paths, "native")
     when 2
-        play_game(true)
+        play_game($wine_games, $wine_game_paths, "wine")
     when 3
-        play_lutris()
+        play_game($lutris_games, $lutris_game_id, "lutris")
+        #play_lutris()
     when 4
         play_emulator()
     when 5
-        play_game_nixos(false)
+        play_game($games, $game_paths, "nixos-appimage")
+        #play_game_nixos(false)
     when 6
-        play_game_nixos(true)
+        play_game($games, $game_paths, "nixos-steamrun")
+        #play_game_nixos(true)
     end
 end
 
@@ -212,9 +181,8 @@ if $ascii_art != ""
     title += $ascii_art + "\n\n"
 end
 title += "////////////////////////////
-//Kerolauncher version 1.5//
+//Kerolauncher version 1.6//
 ////////////////////////////\n"
-
 
 while true
     clearterminal()

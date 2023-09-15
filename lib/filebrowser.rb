@@ -4,7 +4,9 @@ def filebrowser()
         paths, paths_num = print_dirs()
         answer = gets.chomp; answernum = answer.to_i
         count=0
-        if answernum == 0 then return
+        if answernum == 0
+            Dir.chdir($starting_path)
+            return
         elsif answernum == 1 then Dir::chdir("..")
         else
             for path in paths
@@ -26,12 +28,12 @@ def open_path(path)
             system("xdg-open \"#{path}\"")
         end
     else
-        Dir::chdir(path)
+        Dir.chdir(path)
     end
 end
 
 def print_dirs()
-    finalstring = "0: Exit     1: Go back\n---Directories---\n"
+    finalstring = "#{Dir.pwd()}\n\n0: Exit     1: Go back\n---Directories---\n"
     paths = Dir::children(".")
     dirs = Array.new(); files = Array.new()
     allpaths = Array.new(); allpaths_num = Array.new()

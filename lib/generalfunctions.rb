@@ -21,6 +21,23 @@
 #     end
 # end
 
+def getNumRange(maxnum)
+    numrange = ""
+    for i in 1..maxnum
+        numrange += i.to_s
+    end
+    return numrange
+end
+
+def belongsToRange(numstr, maxnum) #implement char-based solution instead
+    for i in 1..maxnum
+        if maxnum.to_s == numstr
+            return true
+        end
+    end
+    return false
+end
+
 def execute_silent(command)
     if $platform == 0
         return system("#{command} >> NUL")

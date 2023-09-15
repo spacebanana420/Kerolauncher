@@ -8,7 +8,7 @@ end
 
 def spawntui(title, options, printstring, errormessage, numrange)
     printtext=title + "\n"
-    for option in options
+    options.each do |option|
         if $display_horizontal == true
             printtext += "#{option}     "
         else
