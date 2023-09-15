@@ -74,7 +74,7 @@ def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
         return
     end
     extensions = [".nds", ".cia", ".3ds", ".wbfs", ".gba", ".sfc"]
-    commands = [$nds_command, $threeds_command, $wii_command, $gba_command, $snes_command]
+    commands = [$nds_command, $threeds_command, $threeds_command, $wii_command, $gba_command, $snes_command]
     finalcommand = ""
 
     gamechoice = read_answer_iterate($emulated_games, "Choose a game to play", "You need to choose one of the available games!")
