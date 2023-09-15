@@ -101,15 +101,15 @@ def arg_play(inmode) #Limit choice for different systems
 
     case inmode
     when "native"
-        play_game(false)
+        play_game($games, $game_paths, "native")
     when "wine"
-        play_game(true)
+        play_game($wine_games, $wine_game_paths, "wine")
     when "lutris"
-        play_lutris()
+        play_game($lutris_games, $lutris_game_id, "lutris")
     when "steamrun"
-        play_game_nixos(false)
+        play_game($games, $game_paths, "nixos-steamrun")
     when "appimagerun"
-        play_game_nixos(true)
+        play_game($games, $game_paths, "nixos-appimage")
     when "emulator"
         play_emulator()
     end
