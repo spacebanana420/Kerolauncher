@@ -73,36 +73,38 @@ def play_emulator() #Launch emulators from the CLI with ROMs as their arguments
         presstocontinue("You did not add any console game entries yet! Open config.rb to setup the configuration")
         return
     end
+    extensions = [".nds", ".cia", ".3ds", ".wbfs", ".gba", ".sfc"]
+    commands = [$nds_command, $threeds_command, $wii_command, $gba_command, $snes_command]
+    finalcommand = ""
+
     gamechoice = read_answer_iterate($emulated_games, "Choose a game to play", "You need to choose one of the available games!")
     if gamechoice == false
         return
     end
+
+    i = 0
+    extensions.each do |fmt|
+        if $emulated_game_paths[gamechoice].inclue?(fmt) == true
+            finalcommand = commands[i]
+            break
+        end
+        i += 1
+    end
+
     if $start_command != ""
         system($start_command)
     end
 
     puts "Launching #{$emulated_games[gamechoice]}..."
-    if $emulated_game_paths[gamechoice].include?(".nds") == true
-        system("#{$nds_command} \"#{$emulated_game_paths[gamechoice]}\"")
-
-    elsif $emulated_game_paths[gamechoice].include?(".cia") == true || $emulated_game_paths[gamechoice].include?(".cci") == true || $emulated_game_paths[gamechoice].include?(".3ds") == true
-        system("#{$threeds_command} \"#{$emulated_game_paths[gamechoice]}\"")
-
-    elsif $emulated_game_paths[gamechoice].include?(".wbfs") == true
-        system("#{$wii_command} \"#{$emulated_game_paths[gamechoice]}\"")
-
-    elsif $emulated_game_paths[gamechoice].include?(".gba") == true
-        system("#{$gba_command} \"#{$emulated_game_paths[gamechoice]}\"")
-
-    elsif $emulated_game_paths[gamechoice].include?(".sfc") == true
-        system("#{$snes_command} \"#{$emulated_game_paths[gamechoice]}\"")
-
+    if finalcommand != ""
+        system(finalcommand, $emulated_game_paths[gamechoice])
     elsif $custom_emu_command != ""
-        system("#{$custom_emu_command} \"#{$emulated_game_paths[gamechoice]}\"")
+        system($custom_emu_command, $emulated_game_paths[gamechoice])
     else
         presstocontinue("Error! ROM type is unknown!\nTo launch unknown ROM files, you need to set up $custom_emu_command in config.rb")
         return
     end
+
     if $close_command != ""
         system($close_command)
     end
